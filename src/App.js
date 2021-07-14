@@ -1,5 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
+import Propiedad from "./componets/propiedades"
+import Texto from "./componets/texto"
+import State from "./componets/componenteConEstado"
+import RenderConditional from "./componets/renderConditional"
+import RenderElemetReact from "./componets/renderElemetReact"
+
 
 function App() {
   return (
@@ -17,6 +23,22 @@ function App() {
         >
           Learn React
         </a>
+        <Propiedad 
+        cadena="Esto es un acadena de texto"
+        number ={20} 
+        boolean = {false} 
+        arreglo={[1,2,3]}
+        objeto={{nombre:"tu mama",apellido:"ya sabes lo demas"}}
+        elementReact={<i>no sale</i>}
+        funcion = {numero=>numero*numero}
+        componenteReact = {<Texto></Texto>}
+        />
+        <State/>
+        <hr></hr>
+        <RenderConditional/>
+        <br></br>
+        <RenderElemetReact/>
+        
       </header>
     </div>
   );

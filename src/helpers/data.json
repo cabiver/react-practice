@@ -1,0 +1,19 @@
+{
+    "frameworks":[
+        {
+            "id":1,
+            "name":"react",
+            "web":"https://reactjs.org/"
+        },
+        {
+            "id":2,
+            "name":"angular",
+            "web":"https://angular.io/"
+        },
+        {
+            "id":3,
+            "name":"jquery",
+            "web":"https://jquery.com/"
+        }
+    ]
+}
