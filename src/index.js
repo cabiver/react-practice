@@ -1,17 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import PaginaPrincipal from "./componets/index/PaginaPrincipal.js"
+import ErrorPagina from "./componets/error404/ErrorPagina"
+import Cookies from 'js-cookie'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Switch>
+        <Route exact path="/testingAjax">
+          <App alone="otras palabras"/>
+        </Route>
+        <Route exact path="/">
+          
+          {Cookies.get("userName") === undefined?<PaginaPrincipal/>:<h1>chupa verga</h1>}
+        </Route>
+        
+        {/* <Route exact path="/:usuariName" component={PaginaPrincipal}/> */}
+        <Route path="*" component={ErrorPagina}/>
+      
+      </Switch>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
