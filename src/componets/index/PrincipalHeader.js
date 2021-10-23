@@ -48,7 +48,6 @@ export default function PaginaPrincipal() {
     resultado.innerHTML = "cargando";
 
     let respuesta = await axios.post("/",  {
-
         uss: usuariName.value,
         contra: contra.value
     })
