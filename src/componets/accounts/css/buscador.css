@@ -26,7 +26,10 @@
   border-radius: 50%;
   border: 3px solid var(--colorSegundario-mas-oscuro);
 }
-
+.divIconPerfil {
+  height: inherit;
+  position: relative;
+}
 .divBarraDeBusqueda {
   flex-grow: 1;
 }

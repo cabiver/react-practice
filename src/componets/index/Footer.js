@@ -3,7 +3,7 @@ import React from "react"
 export default function Footer(){
     return(
     <footer className="banner">
-        <div className="cente">
+        <div className="footer">
             <a rel="noreferrer" href="https://www.facebook.com/carloshabid.vergelbarraza" className="white feedback" target="_blank">
             <img src="images/logoFace.png" className="icon" alt=""/> facebook</a>
             <a href="https://twitter.com/cabiver7w7" className="white feedback"> 

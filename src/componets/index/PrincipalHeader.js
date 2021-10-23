@@ -1,6 +1,7 @@
 import React,{useEffect} from "react";
 import axios from "axios";
-import "./style.css"
+import "./style.css";
+import "../servis/eye.css";
 export default function PaginaPrincipal() {
     let create = false;
 

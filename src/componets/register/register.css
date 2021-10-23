@@ -2,7 +2,8 @@
     font-family: sans-serif;
   }
   
-  body {
+  .register-body {
+    min-height: 100vh;
     background-color: #555;
   }
   
@@ -63,23 +64,6 @@
     margin-bottom: 5px;
   }
   
-  .eye {
-    object-fit: cover;
-    position: relative;
-    top: 5px;
-    left: -15px;
-    height: 20px;
-    width: 20px;
-  }
-  
-  .border__input--left {
-    position: relative;
-    left: 10px;
-  }
-  
-  .eye:hover {
-    background-color: #fff9;
-  }
   
   .border__send:hover {
     background-color: #0afa;

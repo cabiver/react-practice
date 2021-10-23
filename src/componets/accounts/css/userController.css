@@ -23,6 +23,8 @@
 .divrCamaraIcono {
   position: absolute;
   z-index: 10;
+  bottom: 3%;
+  right: 3%;
   height: fit-content;
   width: fit-content;
 }
