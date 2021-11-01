@@ -1,6 +1,9 @@
-import React, {useEffect} from "react"
+import React from "react"
 import Header from "../globalComponets/Header"
 import BackGround from "./componets/BackGround"
+import AddPost from './componets/AddPost'
+import User from "./componets/User"
+import Posts from '../globalComponets/posts'
 
 import "../../servis/variables.css"
 import"../../servis/center.css"
@@ -13,22 +16,21 @@ import"../css/ventanaDePost.css"
 import"../css/vistaDePost.css"
 import"../css/portadaUsuario.css"
 import"../css/responsiveAllCuentas.css"
-import User from "./componets/User"
-import Posts from './componets/posts'
 export default function MyAccount(props) {
-    useEffect(() => {
-        const script = document.createElement("script");
-        script.src = "js/responsive-cuentas.js";
-        script.async = true;
-        document.body.appendChild(script);
-    },[]);
+    // useEffect(() => {
+    //     const script = document.createElement("script");
+    //     script.src = "js/responsive-cuentas.js";
+    //     script.async = true;
+    //     document.body.appendChild(script);
+    // },[]);
     
     return (
     <>
         <Header></Header>
         <BackGround></BackGround>
         <User></User>
-        <Posts></Posts>        
+        <AddPost></AddPost>
+        <Posts peticionPost="/cuentas"></Posts>        
     </>
     )
 }

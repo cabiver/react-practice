@@ -1,18 +1,6 @@
 import React, {useEffect} from "react"
 import Header from "../globalComponets/Header"
-// import BackGround from "../componets/BackGround"
-
-// import "../../servis/variables.css"
-// import"../../servis/center.css"
-// import"../../servis/normalize.css"
-// import"../../servis/flexbox.css"
-// import"../css/cuentas-css.css"
-// import"../css/imagenes.css"
-// import"../css/userController.css"
-// import"../css/ventanaDePost.css"
-// import"../css/vistaDePost.css"
-// import"../css/portadaUsuario.css"
-// import"../css/responsiveAllCuentas.css"
+import Post from '../globalComponets/posts'
 
 export default function MyAccount(props) {
     useEffect(() => {
@@ -22,6 +10,7 @@ export default function MyAccount(props) {
     return (
     <>
         <Header></Header>
+        <Post peticionPost="/UltimosPost"></Post>
     </>
     )
 }

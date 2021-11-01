@@ -1,5 +1,4 @@
 import {useEffect, useRef, useState } from 'react'
-import AddPost from './AddPost'
 import axios from 'axios'
 
 export default function MyAccount(props) {
@@ -140,11 +139,13 @@ export default function MyAccount(props) {
         if (!canload || limit) {
             return
         }
-        setCanload(false)    
-        console.log(contador)
-        const respuesta = await axios.post('/cuentas' + window.location.pathname, {
-            cont: contador
+        setCanload(false)
+        const respuesta = await axios.post(props.peticionPost + window.location.pathname, {
+            cont: contador,
+            amigosVisitados: []
+
         })
+        console.log(respuesta)
         if (respuesta.statusText === 'OK') {
             if (respuesta.data.length === 0) {
                 createMorePhoto()
@@ -168,7 +169,6 @@ export default function MyAccount(props) {
     }, [])
     return (
         <div>
-            <AddPost></AddPost>
             <div className="marco" ref={marco}>
 
             </div>

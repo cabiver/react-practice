@@ -68,7 +68,9 @@ export default function ErrorPagina(props) {
             if (respuesta.statusText === 'OK') {
               document.getElementById('js_register-informar_usuario_de_la_peticion').innerHTML = respuesta.data.mensage
               if (respuesta.data.metodo) {
-                document.cookie = 'userName=' + respuesta.data.token
+                document.cookie = 'token=' + respuesta.data.token
+                document.cookie = 'userName=' + respuesta.data.nombre
+                
                 const urlNombre = respuesta.data.nombre.replaceAll(' ', '%20')
                 window.location.assign('/' + urlNombre)
               }

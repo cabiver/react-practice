@@ -1,5 +1,6 @@
 .barraDeBusqueda {
   min-width: 30px;
+  position: relative;
   height: -webkit-fill-available;
   display: flex;
   flex-grow: 1;
@@ -84,7 +85,10 @@
 .icono-lupa:hover {
   background-color: rgba(var(--blanco), 0.13);
 }
-
+.barraDeBusqueda__div{
+  flex: 1;
+  margin: 0 12px 0 12px;
+}
 .div-dentro-de-barra-de-busqueda {
   padding: 0;
   width: 100%;
@@ -94,7 +98,9 @@
   border: none;
   text-align: center;
 }
-
+.barraDeBusqueda__lupa {
+  right: 12px;
+}
 .inputs-text-sin-mamadas:focus {
   outline: none;
 }

@@ -55,9 +55,11 @@ export default function PaginaPrincipal() {
         let autorizar = respuesta.data.metodo;
         let mensaje = respuesta.data.mensaje;
         let token = respuesta.data.token;
+        console.log(respuesta)
         if(autorizar) {
-            document.cookie = "userName="+token;
-            window.location.reload();
+            document.cookie = "token="+token;
+            document.cookie = "userName="+ respuesta.data.nombre
+            // window.location.reload();
         }else{
             resultado.innerHTML = mensaje;
         }

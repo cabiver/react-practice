@@ -21,10 +21,12 @@ ffmpeg.setFfmpegPath(ffmpegPath);
 
 function verificacion(cookie) {
   let jsoncookie = cookieNPM.parse(cookie);
-  if (!jsoncookie.userName || jsoncookie.userName == "undefined" || jsoncookie.userName.length == 0) {
+  if (!jsoncookie.token || jsoncookie.token == "undefined" || jsoncookie.token.length == 0) {
     return { metodo: false };
   }
-  const token = jsoncookie.userName
+  const token = jsoncookie.token
+  // console.log('lo que sigue es el token')
+  // console.log(token)
   const decodedToken = jwt.verify(token, youKnow);
   if (!decodedToken.id) {
     return { metodo: false };
@@ -55,7 +57,11 @@ Router.post("/", async (req, res) => {
         usuariname: user.usuari,
         icon: user.icon,
       }, youKnow);
-      res.json({ metodo: true, token: token });
+      res.json({ 
+        metodo: true, 
+        token: token,
+        nombre: user.usuari,
+      });
       return;
     }
   }
@@ -98,15 +104,16 @@ Router.post("/register", async (req, res) => {
   const userNew = await primer.save();
   const token = await jwt.sign({ id: userNew._id, usuariname: userNew.usuari, icon: userNew.icon }, youKnow);
   res.send({
-    metodo: true, mensage: "se ha guardado su usuario",
+    metodo: true, 
+    mensage: "se ha guardado su usuario",
     nombre: userNew.usuari,
-    token: token
+    token: token,
   });
   return;
 });
 Router.post("/cuentas/:id", async (req, res) => {
   let op = req.body;
-  console.log(op)
+  // console.log(op)
   const user = await model.findOne({ usuari: req.params.id });
   if (!user || req.params.id == "") {
     return res.status(404).send(pages + "/html/error.html")
@@ -356,25 +363,28 @@ Router.post("/recomendacion", async (req, res) => {
 Router.post("/UltimosPost", async (req, res) => {
   let op = req.body;
   cookie = req.headers.cookie;
+  // console.log(cookie)
   if (!cookie) {
     res.status(401).render(pages + "html/servis/401NoAutorizacion.html");
     return;
   }
   let objetoVerificacion = verificacion(cookie);
+  // console.log(objetoVerificacion)
   if (!objetoVerificacion.metodo) {
     res.status(404).send("no se ah encontrado el usuario")
     return;
   }
   const user = await model.findOne({ _id: objetoVerificacion.decodedToken.id });
+  // console.log(user)
   if (!user) {
     res.status(404).send("no se ah encontrado el usuario")
     return;
   }
   if (!op.amigosVisitados) {
-    res.status(404).send("deja de meterte con mi codigo")
+    res.status(405).send("deja de meterte con mi codigo")
     return;
   }
-
+  // console.log('llego hasta aca')
   let numeroPost = 15;
   let postMandar = [];
   let arrayAmigos = op.amigosVisitados;
@@ -441,7 +451,7 @@ Router.post("/UltimosPost", async (req, res) => {
       });
     }
   }
-  res.status(200).json({ amigos: postMandar, nuevoAmigosVisitados, arrayAmigos })
+  res.status(200).json({ content: postMandar, nuevoAmigosVisitados, arrayAmigos })
 });
 Router.post("/:id", async (req, res) => {
   cookie = req.headers.cookie;
