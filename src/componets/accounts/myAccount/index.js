@@ -1,5 +1,5 @@
 import React, {useEffect} from "react"
-import Header from "./componets/Header"
+import Header from "../globalComponets/Header"
 import BackGround from "./componets/BackGround"
 
 import "../../servis/variables.css"

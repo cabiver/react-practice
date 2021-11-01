@@ -1,6 +1,6 @@
 import React  from "react"
-import "../../css/navegacion.css"
-import"../../css/buscador.css"
+import "../css/navegacion.css"
+import "../css/buscador.css"
 
 export default function ErrorPagina(props) {
     

@@ -106,6 +106,7 @@ Router.post("/register", async (req, res) => {
 });
 Router.post("/cuentas/:id", async (req, res) => {
   let op = req.body;
+  console.log(op)
   const user = await model.findOne({ usuari: req.params.id });
   if (!user || req.params.id == "") {
     return res.status(404).send(pages + "/html/error.html")
