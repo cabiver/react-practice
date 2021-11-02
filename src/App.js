@@ -5,6 +5,7 @@ import Cookies from 'js-cookie'
 import Register from './componets/register/Register'
 import myAccount from './componets/accounts/myAccount/index'
 import Recomend from './componets/accounts/recomend/index'
+import "./App.css"
 import {
   BrowserRouter as Router,
   Switch,

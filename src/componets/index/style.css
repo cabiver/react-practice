@@ -1,3 +1,16 @@
+:root{
+    --red_a: 191, 0, 0;
+    --red_b: 128, 0, 0;
+    --red_c: 255, 0, 0;
+    --red_d: 64, 0, 0;
+    --red_e: 230, 0, 0;
+
+    --black_a: 140, 140, 140;
+    --black_b: 77, 77, 77;
+    --black_c: 0, 0, 0;
+    --black_d: 51, 51, 51;
+}
+
 *{
     font-family: Verdana, Tahoma, sans-serif;
     font-size:18px;
@@ -8,7 +21,7 @@
 
 .backzero{
     border: 0;
-    margin-right: 15px;
+    /* margin-right: 15px; */
     padding-top: 6px;
     padding-bottom: 6px;
     font-size: 20px;
@@ -216,14 +229,14 @@ a{
 }
 
 .text{
-    width: 87%;
+    width: 100%;
     min-width: 300px;
     background-color: var(--gris-claro);
     border-radius: 6px;
     color: #ddd;
     margin-bottom: 12px;
     margin-top: 12px;
-    padding: 5px;
+    padding: 5px 12px 5px 12px;
 }
 .icon{
 height:19px;
@@ -250,7 +263,7 @@ height:19px;
     opacity: 1;
 }
 
-@media screen and (max-width: 470px) {
+@media screen and (min-width: 470px) {
     .all{
         width: 100%;
     }
@@ -271,7 +284,7 @@ height:19px;
         font-size:18px;
     }
 }
-@media screen and (max-width: 700px) and (min-width:470px){
+@media screen and (min-width: 700px){
     .backzero{
         font-size:18px;
         padding-right: 12px;
@@ -292,15 +305,15 @@ height:19px;
 }
 @media screen and (min-width:700px) and (max-width:900px){
     
+    .text{
+        width: 87%;
+    }
     .full{
         width: 80%;
         margin: 0 2% 0 2%;
     }
     .stuffed{
         height: 380px;
-    }
-    *{
-        font-size: 15px;
     }
     .backzero{
         font-size:18px;

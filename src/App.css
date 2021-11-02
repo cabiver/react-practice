@@ -1,0 +1,28 @@
+*{
+    font-size: 14px;
+}
+
+@media screen and (min-width:700px) {
+    * { 
+        font-size: 19px; 
+    }
+}
+  
+@media screen and (min-width:900px) {
+    
+    *{
+        font-size: 22px;
+    }
+}
+
+@media screen and (min-width: 1050px) {
+    * { 
+        font-size: 26px; 
+    }
+}
+  
+@media screen and (min-width: 1650px) {
+    * { 
+        font-size: 38px;
+    }
+}

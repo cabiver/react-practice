@@ -5,7 +5,6 @@ import AddPost from './componets/AddPost'
 import User from "./componets/User"
 import Posts from '../globalComponets/posts'
 
-import "../../servis/variables.css"
 import"../../servis/center.css"
 import"../../servis/normalize.css"
 import"../../servis/flexbox.css"

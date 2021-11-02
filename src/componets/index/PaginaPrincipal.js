@@ -1,6 +1,5 @@
 import React from "react";
 import "./style.css"
-import "../servis/variables.css"
 import "../servis/normalize.css"
 import "../servis/center.css"
 import PrincipalHeader from "./componets/PrincipalHeader"
@@ -10,29 +9,6 @@ import ElemetosListas from "./componets/ElemetosListas"
 import Footer from "./componets/Footer"
 
 export default function PaginaPrincipal(){
-    
-    // const handleResize = ()=>{
-    //     const divSesion = document.getElementById("responsive_index.js-ajustar_width_de_la_cabecera");
-    //     const sesion = document.getElementById("responsive_index.js,code.js-pocisionamineto_y_eventos_con_la_ventana");
-    //     const background = document.getElementById("responsive-index.js-detectar_cuando_carge_y_posicionar_objetos");
-        
-    //     divSesion.style.right = `${((document.body.offsetWidth- background.clientWidth ) /2)}px`;
-    //     sesion.style.right = `${((document.body.offsetWidth - background.clientWidth ) /2)}px`;
-    // }
-    // const handleLoad = ()=>{
-    //     const divSesion = document.getElementById("responsive_index.js-ajustar_width_de_la_cabecera");
-    //     const sesion = document.getElementById("responsive_index.js,code.js-pocisionamineto_y_eventos_con_la_ventana");
-    //     const background = document.getElementById("responsive-index.js-detectar_cuando_carge_y_posicionar_objetos");
-        
-    //     divSesion.style.right = `${((document.body.offsetWidth- background.clientWidth ) /2)}px`;
-    //     sesion.style.right = `${((document.body.offsetWidth - background.clientWidth ) /2)}px`;
-    // }
-    
-    // useEffect(() => {
-    //     // window.addEventListener("load",handleLoad);
-    //     // window.addEventListener("resize",handleResize);
-    // }, []);
-    
     return(
 
     <div id="body">
