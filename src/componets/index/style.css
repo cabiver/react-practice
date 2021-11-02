@@ -8,6 +8,7 @@
 
 .backzero{
     border: 0;
+    margin-right: 15px;
     padding-top: 6px;
     padding-bottom: 6px;
     font-size: 20px;
@@ -34,15 +35,20 @@ ul{
 
 }
 
-header{
-    position: absolute;
-    left:0;
+.principal-header{
+    position: relative;
+    height: fit-content;
 }
 
 .fix{
     position:fixed;
     z-index: 150;
 }
+
+.header_fix {
+    width: 100%;
+}
+
 .marHeader{
     background-color: var(--principal-gris);
     display:flex;
