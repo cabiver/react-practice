@@ -1,16 +1,52 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+:root{
+  --red_a: rgb( 191, 0, 0);
+  --red_b: rgb(128, 0, 0) ;
+  --red_c: rgb(255, 0, 0) ;
+  --red_d: rgb(64, 0, 0);
+  --red_e: rgb(230, 0, 0) ;
+
+  --black_a: rgb(140, 140, 140) ;
+  --black_b: rgb(77, 77, 77) ;
+  --black_c: rgb(0, 0, 0) ;
+  --black_d: rgb(51, 51, 51) ;
+  --black_opacity: rgb(0, 0, 0,0.3) ;
+  
+  --color : rgb(201, 201, 201);
+  --color_hover: rgb(204, 57, 57);
 }
 
+@font-face {
+  font-family: IrishGrover-Regular;
+  src: url('/font/IrishGrover-Regular.ttf');
+}
 a {
-  color: inherit;
+  color: var(--color);
   text-decoration: none;
 }
+a:hover{
+  color: var(--color_hover);
+}
+body {
+  padding: 20px 20px 60px;
+  margin: 0;
+  padding: 0;
+  background-color: var(--black_c);
+  position: relative;
+  color: var(--color);
+  font-size: 24px;
+  
+}
+*{
+  font-family: IrishGrover-Regular;
+}
 
-* {
-  box-sizing: border-box;
+
+input[type=text], input[type=password]{
+  outline: none;
+}
+
+@media screen and (min-width:900px) {
+  body {
+    padding: 0 6%;
+  }
 }

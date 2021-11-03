@@ -1,0 +1,13 @@
+.titule_container {
+    display: flex;
+    justify-content: center;
+}
+.titule__text{
+    padding: 5px;
+    border-radius: 10px;
+    background-color: var(--black_d);
+}
+.text_area{
+    border-radius: 6px;
+    background-color: var(--black_d);
+}
