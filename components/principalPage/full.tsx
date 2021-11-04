@@ -1,19 +1,20 @@
 import Image from 'next/image'
 import style from '../../styles/principalPage/full.module.css'
+import Link from 'next/link'
 
 
 function Full () {
     return (
         <div className={style.full}>
 
-            <a href="register" className={style.button_register__container}>
-                <div className="boton feedback_boton">
+            <Link passHref href="/register">
+                <div className={style.button_register__container}>
                     <b>register</b>
                 </div>
-            </a>
+            </Link>
 
             <div>
-                <Image priority src="/images/background.jpg" alt="me" width="3840" height="2160" layout="intrinsic" />
+                <Image priority src="/images/background.jpg" alt="me" width="2688" height="1512" layout="intrinsic" />
             </div>
         </div>
 

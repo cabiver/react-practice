@@ -6,45 +6,44 @@ import axios from "axios"
 const Header = ()=>{
     const session = useRef<HTMLFormElement>(null)
     const [create,setCreate] = useState(false)
+    const [requestMessege, setRequestMessege] = useState('') 
     
     const handleClickSession = ()=>{
         setCreate(exist => !exist)
     }
     const handleSubmit = async (e:any)=>{
-        e.preventDefault;
-
-        const resultado =document.getElementById("code.js-informar_usuario_de_la_peticion");
-        
-        if(!session){
+        e.preventDefault();        
+        if(!session?.current){
             return
         }
         const Form = new FormData( session.current )
-        if (!resultado) {
-            return
-        } 
-        resultado.innerHTML = "cargando";
-        let respuesta = await axios.post("/",  {
+        setRequestMessege("cargando")
+        let respuesta = await axios.post("/api/",  {
             uss: Form.get('uss'),
             contra: Form.get('contra')
         })
+        console.log(respuesta)
         if(respuesta.statusText === "OK"){
             let autorizar = respuesta.data.metodo;
             let mensaje = respuesta.data.mensaje;
             let token = respuesta.data.token;
-            console.log(respuesta)
+            
             if(autorizar) {
                 document.cookie = "token="+token;
                 document.cookie = "userName="+ respuesta.data.nombre
-                // window.location.reload();
+                window.location.assign(`/${Form.get('uss')}`);
             }else{
-                resultado.innerHTML = mensaje;
+                setRequestMessege(mensaje)
             }
         }else{
-            resultado.innerHTML = "contraseña o usuario incorrecto";
+            setRequestMessege("contraseña o usuario incorrecto")
         }
     }
     useEffect(()=>{
-        session?.current?.style.display = create?'':'none';
+        if(!session.current){
+            return
+        }
+        session.current.style.display = create?'':'none';
     },[create])
     
     return (
@@ -71,7 +70,7 @@ const Header = ()=>{
                                     
                                 </div>
                                 <input type="submit" className={styles.window_session__button_send} value="sign in"/>
-                                <label className="negrillas"></label>
+                                <label dangerouslySetInnerHTML={{__html : requestMessege}}></label>
                         </form>
                     </div>
                 

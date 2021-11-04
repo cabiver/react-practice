@@ -1,7 +1,6 @@
 {
   "name": "my-red-social",
   "private": true,
-  "proxy": "http://localhost:3001",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -28,6 +27,8 @@
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@babel/node": "^7.16.0",
+    "@types/bcrypt": "^5.0.0",
+    "@types/jsonwebtoken": "^8.5.5",
     "@types/node": "16.11.6",
     "@types/react": "17.0.33",
     "eslint": "7.32.0",

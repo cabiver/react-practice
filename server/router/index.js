@@ -41,6 +41,7 @@ Router.get("/api/data", (req, res) => {
 
 Router.post("/", async (req, res) => {
   let op = req.body;
+  console.log('entre a la peticion principal')
   if (!op.uss || !op.contra) {
     res.status(400).json({ mensaje: "porque modificas mi codigo" })
     return
@@ -87,6 +88,8 @@ Router.post("/ultimaBusqueda", async (req, res) => {
 });
 Router.post("/register", async (req, res) => {
   let op = req.body;
+  console.log('entre a la peticion register')
+  
   if (!op.uss || !op.contra) {
     res.status(400).send("que haces cambiando mi codigo?");
     return;
