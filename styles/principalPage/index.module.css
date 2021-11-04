@@ -1,0 +1,11 @@
+
+.text_area{
+    padding: 0 12px;
+    background-color: var(--black_d);
+}
+
+@media screen and (min-width:900px) {
+    .text_area{
+        border-radius: 6px;
+    }
+}

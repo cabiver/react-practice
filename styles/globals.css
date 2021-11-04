@@ -9,6 +9,7 @@
   --black_b: rgb(77, 77, 77) ;
   --black_c: rgb(0, 0, 0) ;
   --black_d: rgb(51, 51, 51) ;
+  --black_e: rgb(15, 15, 15) ;
   --black_opacity: rgb(0, 0, 0,0.3) ;
   
   --color : rgb(201, 201, 201);
@@ -32,14 +33,16 @@ body {
   padding: 0;
   background-color: var(--black_c);
   position: relative;
-  color: var(--color);
   font-size: 24px;
   
 }
 *{
   font-family: IrishGrover-Regular;
+  color: var(--color);
 }
-
+.marginHeader{
+  margin: 54px 0 0 0;
+}
 
 input[type=text], input[type=password]{
   outline: none;
@@ -47,6 +50,6 @@ input[type=text], input[type=password]{
 
 @media screen and (min-width:900px) {
   body {
-    padding: 0 6%;
+    padding: 0 4%;
   }
 }

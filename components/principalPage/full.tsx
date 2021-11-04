@@ -13,7 +13,7 @@ function Full () {
             </a>
 
             <div>
-                <Image priority src="/images/background.jpg" alt="me" width="3840" height="2400" layout="intrinsic" />
+                <Image priority src="/images/background.jpg" alt="me" width="3840" height="2160" layout="intrinsic" />
             </div>
         </div>
 
