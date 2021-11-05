@@ -4,7 +4,7 @@ import USER_SCHEME from '../../models/usariname'
 import bcrypt from 'bcrypt'
 import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
-const youKnow = 'iLovePlayMinecraftForEver'
+const youKnow :string |undefined = process.env.YOU_KNOW
 const MONGODB_URI :string |undefined = process.env.MONGODB_URI
 type Data = {
   metodo: boolean,
@@ -24,7 +24,7 @@ export default async function handler (
     // console.log(MONGODB_URI)
     // console.log(mongoose.model('usuarios'))
 
-    if (!MONGODB_URI) {
+    if (!MONGODB_URI || !youKnow) {
       return
     }
     await mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -48,7 +48,7 @@ export default async function handler (
       usuari: primer.usuari
     })
 
-    // mongoose.connection.close();
+    mongoose.connection.close()
     if (user) {
       if (await bcrypt.compare(primer.password, user.password)) {
         const token = jwt.sign({

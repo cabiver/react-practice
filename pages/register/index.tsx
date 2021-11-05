@@ -89,21 +89,22 @@ function RegisterPage () {
 
       check(error)
       if (!error[0]) {
-        const respuesta = await axios.post('/register', {
+        const respuesta = await axios.post('/api/register', {
           uss: Form.get('user'),
           contra: Form.get('password')
         })
+        console.log('estoy aqui')
         console.log(respuesta)
         if (respuesta.statusText === 'OK') {
           setRequestMessege(respuesta.data.mensage)
-          // console.log('entre aqui')
+          console.log('entre aqui')
 
           if (respuesta.data.metodo) {
             document.cookie = 'token=' + respuesta.data.token
             document.cookie = 'userName=' + respuesta.data.nombre
 
-            const urlNombre = respuesta.data.nombre.replaceAll(' ', '%20')
-            window.location.assign('/' + urlNombre)
+            // const urlNombre = respuesta.data.nombre.replaceAll(' ', '%20')
+            // window.location.assign('/' + urlNombre)
           }
         } else {
           console.log(respuesta)
