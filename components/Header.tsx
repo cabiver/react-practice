@@ -38,8 +38,8 @@ const Header = () => {
       if (autorizar) {
         document.cookie = 'token=' + token
         document.cookie = 'userName=' + respuesta.data.nombre
-        document.cookie = 'token=' + respuesta.data.icon
-        document.cookie = 'userName=' + respuesta.data.background
+        document.cookie = 'icon=' + respuesta.data.icon
+        document.cookie = 'background=' + respuesta.data.background
 
         router.push(`/${Form.get('uss')}`)
       } else {
