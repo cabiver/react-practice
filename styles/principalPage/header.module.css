@@ -12,7 +12,7 @@
 .nav {
     width: 100%;
     background-image:
-     linear-gradient(to top, var(--red_b), var(--red_c));
+     linear-gradient(166deg, var(--black_c)  70%, var(--red_e));
     display: flex;
     justify-content: flex-end;
 }

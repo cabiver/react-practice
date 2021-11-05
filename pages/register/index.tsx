@@ -114,7 +114,7 @@ function RegisterPage() {
 
     <div className={style.center}>
       <form onSubmit={handleSubmit} className={style.form} ref={form} action="" method="POST">
-        <div >Registrate</div>
+        <h1 >Registrate</h1>
         <label htmlFor="js_register.js-validar_el_nombre_de_usuario" >nombre de usuario: </label>
         <input type="text" name="user" id="js_register.js-validar_el_nombre_de_usuario" placeholder="usuari123" />
         <label className="negrillas" htmlFor="password" >contraseña: </label>

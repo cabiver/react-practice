@@ -1,9 +1,32 @@
-.titule_container {
+.titule_center {
+    position: relative;
     display: flex;
     justify-content: center;
+    margin: 12px 0 12px 0;
+}
+.titule_container {
+    position: relative;
+    width: 100%;
+    width: 90%;
+    ---titule_body : polygon(2% 14%, 10% 0%, 62% 4%, 93% 0%, 100% 14%, 99.7% 47%, 100% 77%, 99% 92%, 97% 98%, 84% 92%, 71% 98%, 66% 100%, 44% 96%, 17% 100%, 9% 94%, 1% 86%,0.6% 29%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.titule_shadow {
+    position: absolute;
+    height: 110%;
+    width: 96%;
+    transform: scale(12px);
+    clip-path: var(---titule_body);
+    background-color: var(--shadow);
 }
 .titule__text{
-    padding: 5px;
+    text-align: center;
+    font-size: 28px;
+    padding: 12px;
+    width: 90%;
     border-radius: 10px;
-    background-color: var(--black_d);
+    clip-path: var(---titule_body);
+    background-color: var(--black_c);
 }

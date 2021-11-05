@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react"
+import { useRouter } from 'next/router'
 import Image from 'next/image'
 import styles from '@styles/principalPage/header.module.css'
 import axios from "axios"
 
 const Header = ()=>{
+    const router = useRouter()
     const session = useRef<HTMLFormElement>(null)
     const [create,setCreate] = useState(false)
     const [requestMessege, setRequestMessege] = useState('') 
@@ -31,7 +33,7 @@ const Header = ()=>{
             if(autorizar) {
                 document.cookie = "token="+token;
                 document.cookie = "userName="+ respuesta.data.nombre
-                window.location.assign(`/${Form.get('uss')}`);
+                router.push(`/${Form.get('uss')}`)
             }else{
                 setRequestMessege(mensaje)
             }
@@ -50,8 +52,8 @@ const Header = ()=>{
             <>
             <header className={styles.header}>
                     <div className={styles.nav}>
-                        <div className={styles.header__container__button}>
-                            <div onClick={handleClickSession} className={styles.header__button}>login</div>
+                        <div onClick={handleClickSession} className={styles.header__container__button}>
+                            <div className={styles.header__button}>login</div>
                         </div>
                     </div>
                         

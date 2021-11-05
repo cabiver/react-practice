@@ -14,3 +14,6 @@
     border: 2px solid var(--black_b);
     cursor: pointer;
 }
+.container_principal_img{
+    box-shadow: 0 0 0 0 var(--black_b);
+}

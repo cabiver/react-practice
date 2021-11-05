@@ -1,11 +1,13 @@
 
 .text_area{
-    padding: 0 12px;
-    background-color: var(--black_d);
+    padding: 1px 12px;
+    background-color: var(--red_d);
+    border-top: 2px solid var(--shadow);
 }
 
 @media screen and (min-width:900px) {
     .text_area{
         border-radius: 6px;
+        border: solid;
     }
 }

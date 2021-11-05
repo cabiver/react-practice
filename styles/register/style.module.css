@@ -8,7 +8,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 40%;
+    min-width: fit-content;
     padding: 12px;
-    background-color: var(--red_a);
+    background-color: var(--black_c);
     border-radius: 12px;
 }

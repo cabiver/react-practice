@@ -12,6 +12,7 @@
   --black_e: rgb(15, 15, 15) ;
   --black_opacity: rgb(0, 0, 0,0.3) ;
   
+  --shadow: rgb(230, 230, 230);
   --color : rgb(201, 201, 201);
   --color_hover: rgb(204, 57, 57);
 }
@@ -31,12 +32,11 @@ body {
   padding: 20px 20px 60px;
   margin: 0;
   padding: 0;
-  background-color: var(--black_c);
+  background-color: var(--red_a);
   position: relative;
-  font-size: 24px;
-  
 }
-*{
+* {
+  font-size: 24px;
   font-family: IrishGrover-Regular;
   color: var(--color);
 }
@@ -51,5 +51,16 @@ input[type=text], input[type=password]{
 @media screen and (min-width:900px) {
   body {
     padding: 0 4%;
+  } 
+  * {
+    font-size: 30px;
+  }
+}
+@media screen and (min-width:1200px) {
+  body {
+    padding: 0 4%;
+  } 
+  * {
+    font-size: 35px;
   }
 }
