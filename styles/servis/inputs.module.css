@@ -1,0 +1,26 @@
+
+.input {
+    border: none;
+    border-bottom: 2px solid var(--red_e);
+    background-color: transparent;
+}
+.input_password {
+    position: relative;
+    display: flex;
+    
+}
+.see {
+    right: 0;
+    position: absolute;
+}
+.see i:hover {
+    color:var(--red_b)
+}
+.button_send {
+    margin-top: 8px;
+    border-radius: 5px;
+    color: var(--color);
+    font-family: IrishGrover-Regular;
+    border: 2px solid var(--red_d) ;
+    background-color: var(--red_b);
+}

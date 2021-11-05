@@ -1,10 +1,9 @@
 import Image from 'next/image'
-import style from '../../styles/principalPage/full.module.css'
+import style from '@styles/principalPage/full.module.css'
 import Link from 'next/link'
 
-
 function Full () {
-    return (
+  return (
         <div className={style.full}>
 
             <Link passHref href="/register">
@@ -18,9 +17,7 @@ function Full () {
             </div>
         </div>
 
-    )
+  )
 }
 
 export default Full
-
-

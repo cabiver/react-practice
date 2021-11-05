@@ -2,16 +2,18 @@
     position: relative;
     display: flex;
     justify-content: center;
-    margin: 12px 0 12px 0;
 }
 .titule_container {
-    position: relative;
+    position: absolute;
+    transform: translate(0,calc(100% *-1.5));
     width: 100%;
     width: 90%;
-    ---titule_body : polygon(2% 14%, 10% 0%, 62% 4%, 93% 0%, 100% 14%, 99.7% 47%, 100% 77%, 99% 92%, 97% 98%, 84% 92%, 71% 98%, 66% 100%, 44% 96%, 17% 100%, 9% 94%, 1% 86%,0.6% 29%);
+    z-index: 70;
     display: flex;
     justify-content: center;
     align-items: center;
+    ---titule_body : polygon(2% 14%, 10% 0%, 62% 4%, 93% 0%, 100% 14%, 99.7% 47%, 100% 77%, 99% 92%, 97% 98%, 84% 92%, 71% 98%, 66% 100%, 44% 96%, 17% 100%, 9% 94%, 1% 86%,0.6% 29%);
+    
 }
 .titule_shadow {
     position: absolute;
@@ -23,7 +25,6 @@
 }
 .titule__text{
     text-align: center;
-    font-size: 28px;
     padding: 12px;
     width: 90%;
     border-radius: 10px;

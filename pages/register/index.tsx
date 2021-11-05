@@ -1,12 +1,17 @@
 import { useRef, useState } from 'react'
-import Image from 'next/image'
 import axios from 'axios'
 import style from '@styles/register/style.module.css'
+import styleInput from '@styles/servis/inputs.module.css'
+import { changePassword } from '../../utility Functions/changePassword'
 
-function RegisterPage() {
+function RegisterPage () {
   const form = useRef<HTMLFormElement>(null)
+  const [visiblePass, setVisiblePass] = useState(true)
   const [requestMessege, setRequestMessege] = useState('')
-
+  const handelPassword = () => {
+    setVisiblePass((e) => !e)
+    changePassword('password', visiblePass)
+  }
   const check = (error: Array<any>) => {
     if (error[0]) {
       setRequestMessege(error[1])
@@ -16,7 +21,7 @@ function RegisterPage() {
   }
   const validartodo = (text: string, cant: any) => {
     const error = []
-    const valido = document.getElementById(text) as HTMLInputElement;
+    const valido = document.getElementById(text) as HTMLInputElement
     if (!valido) {
       return
     }
@@ -70,29 +75,26 @@ function RegisterPage() {
       return
     }
 
-
     let error = validartodo('js_register.js-validar_el_nombre_de_usuario', 5)
-    if (error == undefined) {
+    if (error === undefined) {
       return
     }
     check(error)
 
     if (!error[0]) {
       error = validartodo('password', 8)
-      if (error == undefined) {
+      if (error === undefined) {
         return
       }
 
       check(error)
       if (!error[0]) {
-
         const respuesta = await axios.post('/register', {
           uss: Form.get('user'),
           contra: Form.get('password')
         })
         console.log(respuesta)
         if (respuesta.statusText === 'OK') {
-
           setRequestMessege(respuesta.data.mensage)
           // console.log('entre aqui')
 
@@ -116,17 +118,18 @@ function RegisterPage() {
       <form onSubmit={handleSubmit} className={style.form} ref={form} action="" method="POST">
         <h1 >Registrate</h1>
         <label htmlFor="js_register.js-validar_el_nombre_de_usuario" >nombre de usuario: </label>
-        <input type="text" name="user" id="js_register.js-validar_el_nombre_de_usuario" placeholder="usuari123" />
-        <label className="negrillas" htmlFor="password" >contraseña: </label>
-        <div className="relative">
-          <input className="border__input border__input--left" type="password" name="password" id="password" placeholder="password" />
-          <Image priority src="/images/eyeball-icon-png-eye-icon-1.png" alt="me" height="20" width="20" />
-
+          <input className={styleInput.input} type="text" name="user" id="js_register.js-validar_el_nombre_de_usuario" placeholder="usuari123" />
+        <label htmlFor="password" >contraseña: </label>
+        <div className={styleInput.input_password} >
+          <input className={styleInput.input} type="password" name="password" id="password" placeholder="password" />
+          <div onClick={() => handelPassword()} className={styleInput.see}>
+            <i className="fas fa-eye"/>
+          </div>
         </div>
-        <label className="negrillas" htmlFor="js_register.js-validar_el_nombre_de_usuario" >otra vez la contraseña: </label>
-        <input className="border__input" type="password" name="password-again" placeholder="password again" />
-        <input className="border__send" id="js_register.js-boton_event_submit" type="submit" value="register" />
-        <div className="negrillas" dangerouslySetInnerHTML={{ __html: requestMessege }}></div>
+        <label htmlFor="js_register.js-validar_el_nombre_de_usuario" >otra vez la contraseña: </label>
+        <input className={styleInput.input} type="password" name="password-again" placeholder="password again" />
+        <input className={styleInput.button_send} id="js_register.js-boton_event_submit" type="submit" value="register" />
+        <div dangerouslySetInnerHTML={{ __html: requestMessege }}></div>
       </form>
     </div>
 
