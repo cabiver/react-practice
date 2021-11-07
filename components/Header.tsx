@@ -7,6 +7,8 @@ import { changePassword } from '../utility Functions/changePassword'
 
 const Header = () => {
   const router = useRouter()
+  const PrincipalHeader = useRef<HTMLDivElement>(null)
+  const marginHeader = useRef<HTMLDivElement>(null)
   const session = useRef<HTMLFormElement>(null)
   const [create, setCreate] = useState(false)
   const [requestMessege, setRequestMessege] = useState('')
@@ -64,10 +66,16 @@ const Header = () => {
     }
     session.current.style.display = create ? '' : 'none'
   }, [create, router])
+  useEffect(() => {
+    // if (!marginHeader.current) {
+    //   return
+    // }
+    marginHeader.current?.style.height = `${PrincipalHeader.current?.clientHeight}px`
+  }, [PrincipalHeader, marginHeader])
 
   return (
             <>
-            <header className={styles.header}>
+            <div ref={PrincipalHeader} className={styles.header}>
                     <div className={styles.nav}>
                         <div onClick={handleClickSession} className={styles.header__container__button}>
                             <div className={styles.header__button}>login</div>
@@ -92,8 +100,8 @@ const Header = () => {
                         </form>
                     </div>
 
-            </header>
-        <div className={styles.mar}></div>
+            </div>
+        <div ref={marginHeader}></div>
 
     </>
   )

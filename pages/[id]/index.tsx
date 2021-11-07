@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
-// import cookie from 'js-cookie'
-// import Image from 'next/image'
+import cookie from 'js-cookie'
+import Image from 'next/image'
 import axios from 'axios'
 import { useEffect } from 'react'
 function MyPage () {
@@ -15,12 +15,13 @@ function MyPage () {
   }, [inicial])
   return (
   <>
-    {/* <Image src={`/${cookie.get('icon')}`}
-    layout="responsive"
+    <Image src={`/${cookie.get('icon')}`}
+
     width="25"
     height="25"
-    alt="yo que se"></Image> */}
+    alt="yo que se"></Image>
     <h1 > hola señorita como lo llevas
+      {/* <Image></Image> */}
     </h1>
 
   </>
