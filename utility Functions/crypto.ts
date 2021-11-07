@@ -10,13 +10,13 @@ const Securitykey = randomBytes(32)
 // the cipher function
 const cipher = createCipheriv(algorithm, Securitykey, initVector)
 const decipher = createDecipheriv(algorithm, Securitykey, initVector)
-// decipher.setAutoPadding(false)
+decipher.setAutoPadding(false)
 
 export function encrypted (message: string) {
-  let encryptedData = cipher.update(message, 'utf-8', 'binary')
+  let encryptedData = cipher.update(message, 'utf-8', 'hex')
 
   console.log(encryptedData)
-  encryptedData += cipher.final('binary')
+  encryptedData += cipher.final('hex')
   console.log('encrypto : ', encryptedData)
   console.log('password : ', message)
   return encryptedData
@@ -24,7 +24,7 @@ export function encrypted (message: string) {
 export function descrypted (encryptedData: any) {
   console.log(encryptedData)
   console.log('1')
-  let decryptedData = decipher.update(encryptedData, 'binary', 'utf-8')
+  let decryptedData = decipher.update(encryptedData, 'hex', 'utf-8')
   console.log('2')
   console.log(decryptedData)
   decryptedData += decipher.final('utf-8')
