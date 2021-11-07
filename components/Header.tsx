@@ -20,11 +20,21 @@ const Header = () => {
   }
   const handleSubmit = async (e:any) => {
     e.preventDefault()
+    const { id }:string = router.query
     if (!session?.current) {
       return
     }
     const Form = new FormData(session.current)
+
+    if (!Form.get('uss')) {
+      // console.log(Form.get('uss'))
+      return
+    }
     setRequestMessege('cargando')
+    if (id === Form.get('uss')) {
+      console.log('genius, you have ben in your session')
+      return
+    }
     const respuesta = await axios.post('/api/', {
       uss: Form.get('uss'),
       contra: Form.get('contra')
@@ -40,7 +50,6 @@ const Header = () => {
         document.cookie = 'userName=' + respuesta.data.nombre
         document.cookie = 'icon=' + respuesta.data.icon
         document.cookie = 'background=' + respuesta.data.background
-
         router.push(`/${Form.get('uss')}`)
       } else {
         setRequestMessege(mensaje)
@@ -54,7 +63,7 @@ const Header = () => {
       return
     }
     session.current.style.display = create ? '' : 'none'
-  }, [create])
+  }, [create, router])
 
   return (
             <>

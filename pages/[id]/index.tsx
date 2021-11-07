@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
 // import cookie from 'js-cookie'
 // import Image from 'next/image'
-
 import axios from 'axios'
 import { useEffect } from 'react'
 function MyPage () {

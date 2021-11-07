@@ -1,11 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import USER_SCHEME from '../../models/usariname'
-import bcrypt from 'bcrypt'
-import mongoose from 'mongoose'
+// import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import { descrypted } from '../../utility Functions/crypto'
+import { connectToDatabase } from '../../utility Functions/mongoDB'
 const youKnow :string |undefined = process.env.YOU_KNOW
-const MONGODB_URI :string |undefined = process.env.MONGODB_URI
 type Data = {
   metodo: boolean,
   mensaje: string
@@ -24,10 +24,9 @@ export default async function handler (
     // console.log(MONGODB_URI)
     // console.log(mongoose.model('usuarios'))
 
-    if (!MONGODB_URI || !youKnow) {
+    if (!youKnow) {
       return
     }
-    await mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     const op = req.body
     if (!op.uss || !op.contra) {
       res.status(400).json({
@@ -40,17 +39,26 @@ export default async function handler (
       })
       return
     }
+    const { db } = await connectToDatabase()
+
+    if (!db) {
+      return
+    }
     const primer = new USER_SCHEME({
       usuari: op.uss,
       password: op.contra
     })
-    const user = await USER_SCHEME.findOne({
+    const user = await db.collection('usuarios').findOne({
       usuari: primer.usuari
     })
+    // const user = await USER_SCHEME.findOne({
+    //   usuari: primer.usuari
+    // })
 
-    mongoose.connection.close()
+    // mongoose.connection.close()
+
     if (user) {
-      if (await bcrypt.compare(primer.password, user.password)) {
+      if (descrypted(user.password) === op.contra) {
         const token = jwt.sign({
           id: user._id,
           usuariname: user.usuari,
