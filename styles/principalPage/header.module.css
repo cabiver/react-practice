@@ -28,6 +28,19 @@
     display: inline-block;
 }
 
+.header__icon {
+    border-radius: 50%;
+    height: fit-content;
+    overflow: hidden;
+}
+.header__session_login {
+    display: flex;
+    align-items: center;
+}
+.header__userName {
+    margin-right: 6px;
+}
+
 .window_session {
     right: 0;
     width: 38%;
@@ -41,4 +54,11 @@
     padding: 12px;
     border: 1px none var(--red_d);
     border-style: none none solid solid;
+}
+
+@media screen and (min-width:900px) {
+    
+    .header__userName {
+        margin-right: 12px;
+    }
 }

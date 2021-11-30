@@ -3,14 +3,17 @@ import { useRouter } from 'next/router'
 import styles from '@styles/principalPage/header.module.css'
 import styleInput from '@styles/servis/inputs.module.css'
 import axios from 'axios'
+import Image from 'next/image'
 import cookies from 'js-cookie'
 import { changePassword } from '../utility Functions/changePassword'
 
 const Header = () => {
   const [logged, setLogged] = useState(false)
+  const [icon] = useState(cookies.get('icon'))
   const router = useRouter()
-  const loggedOff = useRef(null)
-  const loggedOn = useRef(null)
+  const options = useRef<HTMLDivElement>(null)
+  const loggedOff = useRef<HTMLDivElement>(null)
+  const loggedOn = useRef<HTMLDivElement>(null)
   const PrincipalHeader = useRef<HTMLDivElement>(null)
   const marginHeader = useRef<HTMLDivElement>(null)
   const session = useRef<HTMLFormElement>(null)
@@ -45,7 +48,7 @@ const Header = () => {
       uss: Form.get('uss'),
       contra: Form.get('contra')
     })
-    console.log(respuesta)
+    // console.log(respuesta)
     if (respuesta.statusText === 'OK') {
       const autorizar = respuesta.data.metodo
       const mensaje = respuesta.data.mensaje
@@ -66,10 +69,10 @@ const Header = () => {
     }
   }
   useEffect(() => {
-    if (!session.current) {
+    if (!options.current) {
       return
     }
-    session.current.style.display = create ? '' : 'none'
+    options.current.style.display = create ? '' : 'none'
   }, [create, router])
   useEffect(() => {
     // if (!marginHeader.current) {
@@ -81,7 +84,7 @@ const Header = () => {
     marginHeader.current.style.height = `${PrincipalHeader.current?.clientHeight}px`
   }, [PrincipalHeader, marginHeader])
   useEffect(() => {
-    console.log(logged)
+    // console.log(logged)
     if (!cookies.get('token')) {
       return
     }
@@ -101,9 +104,36 @@ const Header = () => {
               <div className={styles.header__button}>login</div>
             </div>
           </div>
-
-          <div >
-            <form ref={session} className={styles.window_session} onSubmit={(e) => handleSubmit(e)} action="" >
+        </div>
+        <div ref={loggedOn} style={{ display: 'none' }}>
+          <div onClick={handleClickSession} className={styles.nav}>
+            <div className={styles.header__container__button}>
+              {
+                !icon
+                  ? <div>
+                    welcome to the playground, follow me
+                  </div>
+                  : <div>
+                    <div className={styles.header__session_login}>
+                      <div className={styles.header__userName}>
+                        tengo icon
+                      </div>
+                      <Image
+                        className={styles.header__icon}
+                        src={`/${icon}`}
+                        width="50"
+                        height="50"
+                        alt="yo que se">
+                      </Image>
+                    </div>
+                  </div>
+              }
+            </div>
+          </div>
+        </div>
+        <div ref={options}>
+          {!logged
+            ? <form ref={session} className={styles.window_session} onSubmit={(e) => handleSubmit(e)} action="" >
               <label>usuari</label>
               <input name="uss" type="text" className={styleInput.input} />
 
@@ -118,19 +148,10 @@ const Header = () => {
               <input type="submit" className={styleInput.button_send} value="sign in" />
               <label dangerouslySetInnerHTML={{ __html: requestMessege }}></label>
             </form>
-          </div>
-
-        </div>
-        <div ref={loggedOn} style={{ display: 'none' }}>
-          <div className={styles.nav}>
-            <div className={styles.header__container__button}>
-              <div className={styles.header__button}>welcome to the playground, follow me</div>
+            : <div className={styles.window_session}>
+              yo que se
             </div>
-          </div>
-
-          <div >
-
-          </div>
+          }
 
         </div>
 
