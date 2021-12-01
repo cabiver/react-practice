@@ -82,7 +82,7 @@ const Header = () => {
       return
     }
     marginHeader.current.style.height = `${PrincipalHeader.current?.clientHeight}px`
-  }, [PrincipalHeader, marginHeader])
+  }, [PrincipalHeader.current?.clientHeight, marginHeader])
   useEffect(() => {
     // console.log(logged)
     if (!cookies.get('token')) {

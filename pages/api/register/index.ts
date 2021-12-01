@@ -1,13 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import USER_SCHEME from '../../../models/usariname'
-// import bcrypt from 'bcrypt'
 import { connectToDatabase } from '../../../utility Functions/mongoDB'
 import { encrypted } from '../../../utility Functions/crypto'
 
 import jwt from 'jsonwebtoken'
+
 const youKnow :string |undefined = process.env.YOU_KNOW
 const MONGODB_URI :string |undefined = process.env.MONGODB_URI
-// const baseHash = 24
+
 type Data = {
     metodo: boolean
   mensaje: string
@@ -19,7 +19,6 @@ export default async function handler (
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  // console.log(res)
   if (req.method === 'POST') {
     if (!MONGODB_URI || !youKnow) {
       console.log("you don't have the env variables")

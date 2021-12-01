@@ -1,7 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import USER_SCHEME from '../../models/usariname'
-// import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { descrypted } from '../../utility Functions/crypto'
 import { connectToDatabase } from '../../utility Functions/mongoDB'
@@ -20,10 +19,6 @@ export default async function handler (
   res: NextApiResponse<Data>
 ) {
   if (req.method === 'POST') {
-    // console.log('entre a la peticion principal')
-    // console.log(MONGODB_URI)
-    // console.log(mongoose.model('usuarios'))
-
     if (!youKnow) {
       return
     }
@@ -51,11 +46,6 @@ export default async function handler (
     const user = await db.collection('usuarios').findOne({
       usuari: primer.usuari
     })
-    // const user = await USER_SCHEME.findOne({
-    //   usuari: primer.usuari
-    // })
-
-    // mongoose.connection.close()
 
     if (user) {
       if (descrypted(user.password) === op.contra) {

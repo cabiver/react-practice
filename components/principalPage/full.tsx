@@ -13,7 +13,12 @@ function Full () {
             </Link>
 
             <div className={style.container_principal_img}>
-                <Image priority={true} src="/images/background.jpg" alt="me" width="2688" height="1512" layout="intrinsic" />
+                <Image priority={true}
+                src="/images/background.jpg"
+                alt="me"
+                width="2688"
+                height="1512"
+                layout="intrinsic" />
             </div>
         </div>
 
