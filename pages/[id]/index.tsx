@@ -22,7 +22,6 @@ function MyPage () {
     }
     axios.post('/api/' + inicial.query.id, {})
       .then((res) => {
-        console.log(res)
         setBackground(res.data.background)
       })
   }, [inicial])

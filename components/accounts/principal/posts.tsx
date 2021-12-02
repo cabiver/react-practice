@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
+import style from '@styles/componets/posts/posts.module.css'
 
 function MyAccount () {
   const convertidorADias = (diaComparador : string) => {
@@ -38,14 +40,15 @@ function MyAccount () {
   function actualizarDelete () {
     const arrayAllDelete = document.querySelectorAll('.deleteListener')
     for (let index = 0; index < arrayAllDelete.length; index++) {
-      arrayAllDelete[index].addEventListener('click', async e => {
-        if (!e.target) {
+      arrayAllDelete[index].addEventListener('click', async (e) => {
+        const target = e.target as HTMLDivElement
+        if (!target) {
           return
         }
         if (canDelete) {
           setCanDelete(false)
           const formdata = new FormData()
-          formdata.set('parametros', e.target.attributes.referen.nodeValue)
+          formdata.set('parametros', target.attributes.referen.nodeValue)
 
           const element = await axios.post('/deleteimagen' + window.location.pathname, formdata)
           console.log(element)
@@ -165,7 +168,7 @@ function MyAccount () {
   const [canDelete, setCanDelete] = useState(true)
   const [visible, setVisible] = useState(false)
 
-  const noMorePost = useRef(null)
+  const noMorePost = useRef<HTMLDivElement>(null)
   const refCanLoad = useRef(cal)
   const loader = useRef(null)
   const marco = useRef<HTMLDivElement>(null)
@@ -182,19 +185,37 @@ function MyAccount () {
     observer.observe(loader.current)
   }, [loader])
   return (
-              <div>
-    <div className="marco" ref={marco}>
+    <div>
+      <div className={style.more_images}>
+        <form className={style.more_images__window}>
+                <input id="imgFile" type="file" name="image" style={{ display: 'none' }}/>
+                <label htmlFor="imgFile" className="buttonLable ">sube una imagen</label>
+                <div id="usuario_controller.js-div_renderisa_pre_prost" className="load-imge">
+                    <div id="barra-de-carga"></div>
+                    <video id="loadVideo" className="render-de-video pc" src="" style={{ width: '0' }}></video>
+                    <Image id="imag" src="/images/camille-300x300.png" width="25px" height="25px" alt="" className={style.more_images__img}/>
+                </div>
+                <video id="loadVideoMobile" className="render-de-video-mobile" src=""></video>
+                <Image id="imagMobile" src="/images/camille-300x300.png" width="25px" height="25px" alt="" className={style.more_images__img}/>
+
+                <p className="INLINE-BLOC">agrega una description</p>
+                <input className="desc" autoComplete="off" type="text" name="description"/>
+                <button className="sendbutton">subir Post</button>
+          </form>
+      </div>
+
+      <div className="marco" ref={marco}>
+
+      </div>
+
+      <div style={{ height: '24px' }} ref={loader}></div>
+      <div className="FLEXBOX JUSTIFY-CONTENT">
+          <div ref={noMorePost} className="div-para-marco FLEXBOX ALIGN-ITEMS" style={{ display: 'none' }}>
+              <p className=" fuente">ya no hay mas fotos?</p>
+          </div>
+      </div>
 
     </div>
-
-    <div style={{ height: '24px' }} ref={loader}></div>
-    <div className="FLEXBOX JUSTIFY-CONTENT">
-        <div ref={noMorePost} className="div-para-marco FLEXBOX ALIGN-ITEMS" style={{ display: 'none' }}>
-            <p className=" fuente">ya no hay mas fotos?</p>
-        </div>
-    </div>
-
-</div>
 
   )
 }

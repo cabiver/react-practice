@@ -1,0 +1,22 @@
+.more_images__img {
+    display: none;
+}
+.more_images{
+    display: flex;
+    justify-content: center;
+}
+.more_images__window{
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    text-align: center;
+    background-color: var(--black_e);
+}
+
+
+@media screen and (min-width: 700px){
+    .more_images__window{
+        width: 80%;
+    }
+}
