@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
-import Image from 'next/image'
+import cookies from 'js-cookie'
+// import Image from 'next/image'
 import { useRouter } from 'next/router'
 import style from '@styles/componets/posts/posts.module.css'
 
@@ -108,8 +109,8 @@ function MyAccount () {
     noMorePost.current.style.display = ''
   }
   function elementos (p:any) {
-    console.log(p)
-    console.log(p.data.content)
+    // console.log(p)
+    // console.log(p.data.content)
 
     const op = p.data.content
     if (!p) {
@@ -160,6 +161,29 @@ function MyAccount () {
       console.log(respuesta)
     }
   }
+  const handleChange = () => {
+    if (!formPost.current) {
+      return
+    }
+    const form = new FormData(formPost.current)
+    if (!form.get('image')) {
+      return
+    }
+    const data = form.get('image') as File
+    setFile(data)
+    console.log(file)
+  }
+  const handleSubmit = (e:any) => {
+    e.preventDefault()
+    const name = cookies.get('userName')
+    if (!formPost.current || !file || !name) {
+      return
+    }
+
+    const form = new FormData(formPost.current)
+    console.log(form.get('image'))
+    axios.post(`/api/addPost/${name}`, form)
+  }
 
   const inicial = useRouter()
   const [canload, setCanload] = useState(true)
@@ -168,6 +192,9 @@ function MyAccount () {
   const [canDelete, setCanDelete] = useState(true)
   const [visible, setVisible] = useState(false)
 
+  const feedBackFile = useRef<HTMLImageElement>(null)
+  const [file, setFile] = useState<File | null>(null)
+  const formPost = useRef<HTMLFormElement>(null)
   const noMorePost = useRef<HTMLDivElement>(null)
   const refCanLoad = useRef(cal)
   const loader = useRef(null)
@@ -175,6 +202,18 @@ function MyAccount () {
   useEffect(() => {
     refCanLoad.current()
   }, [visible, inicial])
+
+  useEffect(() => {
+    console.log(feedBackFile)
+    if (!file || !feedBackFile.current) {
+      return
+    }
+    const reader = new FileReader()
+    reader.readAsArrayBuffer(file)
+    const image = URL.createObjectURL(file)
+    console.log(feedBackFile.current)
+    feedBackFile.current.setAttribute('src', image)
+  }, [file, feedBackFile])
   useEffect(() => {
     const observer = new IntersectionObserver(() => {
       setVisible((vi) => !vi)
@@ -187,20 +226,24 @@ function MyAccount () {
   return (
     <div>
       <div className={style.more_images}>
-        <form className={style.more_images__window}>
-                <input id="imgFile" type="file" name="image" style={{ display: 'none' }}/>
-                <label htmlFor="imgFile" className="buttonLable ">sube una imagen</label>
-                <div id="usuario_controller.js-div_renderisa_pre_prost" className="load-imge">
+        <form ref={formPost} onSubmit={(e) => handleSubmit(e)} className={style.more_images__window}>
+                <input id="imgFile" onChange={handleChange} type="file" name="image" style={{ display: 'none' }}/>
+                <label htmlFor="imgFile" className={style.more_images__button}>sube una imagen</label>
+                <div className={style.more_image__load_imge}>
                     <div id="barra-de-carga"></div>
                     <video id="loadVideo" className="render-de-video pc" src="" style={{ width: '0' }}></video>
-                    <Image id="imag" src="/images/camille-300x300.png" width="25px" height="25px" alt="" className={style.more_images__img}/>
+                    {
+                      !file
+                        ? <>insert some image or video</>
+                        : <img ref={feedBackFile} className={style.more_images__img}/>
+                    }
                 </div>
-                <video id="loadVideoMobile" className="render-de-video-mobile" src=""></video>
-                <Image id="imagMobile" src="/images/camille-300x300.png" width="25px" height="25px" alt="" className={style.more_images__img}/>
+                {/* <video id="loadVideoMobile" className="render-de-video-mobile" src=""></video>
+                <Image id="imagMobile" src="/images/camille-300x300.png" width="25px" height="25px" alt="" className={style.more_images__img}/> */}
 
-                <p className="INLINE-BLOC">agrega una description</p>
-                <input className="desc" autoComplete="off" type="text" name="description"/>
-                <button className="sendbutton">subir Post</button>
+                <p className={style.more_images__guie_inputs}>agrega una description</p>
+                <input className={style.more_images__description} autoComplete="off" type="text" name="description"/>
+                <button className={style.more_images__button}>subir Post</button>
           </form>
       </div>
 

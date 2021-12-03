@@ -4,6 +4,9 @@
     "paths":{
       "@styles/*":[
         "styles/*"
+      ],
+      "@util/*":[
+        "utility Funtions/*"
       ]
     },
     "target": "es5",

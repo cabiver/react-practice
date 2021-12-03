@@ -9,7 +9,7 @@ import { changePassword } from '../utility Functions/changePassword'
 
 const Header = () => {
   const [logged, setLogged] = useState(false)
-  const [icon] = useState(cookies.get('icon'))
+  const [icon, setIcon] = useState(cookies.get('icon'))
   const router = useRouter()
   const options = useRef<HTMLDivElement>(null)
   const loggedOff = useRef<HTMLDivElement>(null)
@@ -60,6 +60,7 @@ const Header = () => {
         document.cookie = 'icon=' + respuesta.data.icon
         document.cookie = 'background=' + respuesta.data.background
         router.push(`/${Form.get('uss')}`)
+        setIcon(respuesta.data.icon)
         setLogged(true)
       } else {
         setRequestMessege(mensaje)
@@ -111,10 +112,10 @@ const Header = () => {
               {
                 !icon
                   ? <div>
-                    welcome to the playground, follow me
-                  </div>
+                      welcome to the playground, follow me
+                    </div>
                   : <div>
-                    <div className={styles.header__session_login}>
+                      <div className={styles.header__session_login}>
                       <div className={styles.header__userName}>
                         tengo icon
                       </div>
