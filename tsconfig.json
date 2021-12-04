@@ -7,6 +7,9 @@
       ],
       "@util/*":[
         "utility Funtions/*"
+      ],
+      "public/*":[
+        "public/*"
       ]
     },
     "target": "es5",

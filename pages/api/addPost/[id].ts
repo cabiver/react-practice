@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-// import { connectToDatabase } from '../../../utility Functions/mongoDB'
-// import { verificacion } from '../../../utility Functions/verifiCookies'
+import { connectToDatabase } from '../../../utility Functions/mongoDB'
+import { verificacion } from '../../../utility Functions/verifiCookies'
 
 import formidable from 'formidable'
 import fs from 'fs'
@@ -14,18 +14,27 @@ export const config = {
 type Data = {
   mensaje: string
 }
-const post = async (req: any, res: any) => {
+const post = async (req: any) => {
   const form = new formidable.IncomingForm()
-  form.parse(req, async function (err: any, fields: any, files: any) {
-    console.log(files)
-    await saveFile(files)
-    return res.status(201).send('')
+  // console.log(form)
+  const inf = form.parse(req, async function (_err: any, fields: any, files: any) {
+    // console.log(files.image.filepath)
+    // console.log(fields)
+    await saveFile(files.image)
+    return { image: files.image, body: fields }
   })
+  return inf
 }
 const saveFile = async (file:any) => {
-  console.log(file)
-  // const data = fs.readFileSync(file.path)
-  fs.writeFileSync(`../../../public/posts/${file.originalFilename}`, file)
+  // console.log(file.filepath
+  // const url = new URL(file.filepath)
+  // console.log(file.filepath)
+
+  const data :Buffer = fs.readFileSync(file.filepath)
+  console.log(data)
+  const resultado = await fs.writeFileSync(`./public/posts/${file.originalFilename}`, data)
+  // const resultado = await fs.writeFileSync(`../../../public/${file.originalFilename}`, data)
+  console.log(resultado)
   // await fs.unlinkSync(file.path)
 }
 
@@ -35,34 +44,31 @@ export default async function handler (
 ) {
   if (req.method === 'POST') {
     // console.log(req.body)
-    post(req, res)
-    // const { db } = await connectToDatabase()
-    // const user = await db.collection('usuarios').findOne({
-    //   usuari: req.query.id
-    // })
-    // const cookie = req.headers.cookie
-    // if (!cookie) {
-    //   res.status(401)
-    //   return
-    // }
-    // const objetoVerificacion = verificacion(cookie)
-    // if (!objetoVerificacion.metodo) {
-    //   res.status(404).send('no se ah encontrado el usuario')
-    //   return
-    // }
-    // if (!req.files || Object.keys(req.files).length === 0 || !req.files.image) {
-    //   res.status(400).send('No files were uploaded.' + req.file)
-    //   return
-    // }
+    // console.log(req)
+    const inf = post(req)
+    const { db } = await connectToDatabase()
+    const user = await db.collection('usuarios').findOne({
+      usuari: req.query.id
+    })
+    const cookie = req.headers.cookie
+    if (!cookie) {
+      res.status(401)
+      return
+    }
+    const objetoVerificacion = verificacion(cookie)
+    if (!objetoVerificacion.metodo) {
+      res.status(404).send('no se ah encontrado el usuario')
+      return
+    }
     // const imagen = req.files.image
     // if (user._id !== objetoVerificacion.decodedToken.id) {
     //   res.status(400).json({ mesage: 'usted no tiene permitido cambiar ni agregar nada a esta cuenta' })
     //   return
     // }
-    // if (!user) {
-    //   res.status(404).send('no se ah encontrado el usuario')
-    //   return
-    // }
+    if (!user) {
+      res.status(404).send('no se ah encontrado el usuario')
+    }
+    console.log(inf)
     // const desc = Date() + '█ ' + req.body.description
     // const nombreimagen = uuidv4() + imagen.name
     // const postImg = 'temp/' + nombreimagen
