@@ -2,8 +2,22 @@
 .posts__Container {
     width: 100%;
     display: flex;
+    position: relative;
     flex-direction: column;
+    background-color: var(--black_c);
+    padding: 12px;
 }
+.posts__Container::before {
+    content: "";
+    height: 12px;
+    width: 100%;
+    
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: var(--black_d);
+}
+
 @media screen and (min-width: 700px){
     .posts__Container {
         width: 80%;

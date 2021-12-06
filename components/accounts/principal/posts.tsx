@@ -7,32 +7,9 @@ import PostComponent from '../../posts/containerPost'
 import { useRouter } from 'next/router'
 import style from '@styles/componets/posts/posts.module.css'
 
+let postsViews: any[] = []
+
 function MyAccount () {
-  const convertidorADias = (diaComparador : string) => {
-    if (diaComparador === 'Mon') return 'lunes'
-    if (diaComparador === 'Tues') return 'martes'
-    if (diaComparador === 'Wed') return 'miercoles'
-    if (diaComparador === 'Thu') return 'jueves'
-    if (diaComparador === 'Fri') return 'viernes'
-    if (diaComparador === 'Sat') return 'sabado'
-    if (diaComparador === 'Sun') return 'domingo'
-    return diaComparador
-  }
-  const convertidorAMes = (mesComparador : string) => {
-    if (mesComparador === 'Jan') return 'march'
-    if (mesComparador === 'Mar') return 'marzo'
-    if (mesComparador === 'Feb') return 'febrero'
-    if (mesComparador === 'Apr') return 'abril'
-    if (mesComparador === 'May') return 'Mayo'
-    if (mesComparador === 'Jun') return 'Junio'
-    if (mesComparador === 'Jul') return 'julio'
-    if (mesComparador === 'Aug') return 'Agosto'
-    if (mesComparador === 'Sep') return 'septiembre'
-    if (mesComparador === 'oct') return 'obtubre'
-    if (mesComparador === 'Nov') return 'Noviembre'
-    if (mesComparador === 'Dec') return 'Diciembre'
-    return mesComparador
-  }
   // function createX (element : any) {
   //   const divDelete = document.createElement('img')
   //   divDelete.setAttribute('class', 'deleteX deleteListener')
@@ -65,17 +42,17 @@ function MyAccount () {
     }
   }
   function createImgVideo (element: string, complement:string, ast:HTMLImageElement|HTMLVideoElement|HTMLAudioElement) {
-    if (!marco.current) {
-      return
-    }
-    const descrip = complement.split('█')
-    const fecha = descrip[0].split(' ')
-    const dia = fecha[0]
-    const mes = fecha[1]
-    const diaDelMes = fecha[2]
-    const year = fecha[3]
+    // if (!marco.current) {
 
-    const fechaText = convertidorADias(dia) + ' ' + convertidorAMes(mes) + ' ' + diaDelMes + ' ' + year
+    // }
+    // const descrip = complement.split('█')
+    // const fecha = descrip[0].split(' ')
+    // const dia = fecha[0]
+    // const mes = fecha[1]
+    // const diaDelMes = fecha[2]
+    // const year = fecha[3]
+
+    // const fechaText = convertidorADias(dia) + ' ' + convertidorAMes(mes) + ' ' + diaDelMes + ' ' + year
 
     // const nars:HTMLDivElement = document.createElement('div')
     // const content:HTMLDivElement = document.createElement('div')
@@ -117,7 +94,7 @@ function MyAccount () {
     // console.log(p.data.content)
 
     const op = p.data.content
-    console.log(op)
+    // console.log(op)
     if (p) {
       op.forEach((element:any) => {
         const extencion = element.postImg.split('.')
@@ -148,7 +125,7 @@ function MyAccount () {
       return
     }
     setCanload(false)
-    console.log(inicial.query.id)
+    // console.log(inicial.query.id)
     const respuesta = await axios.post(`/api/accounts/${inicial.query.id}`, {
       cont: contador,
       amigosVisitados: []
@@ -161,7 +138,11 @@ function MyAccount () {
         return
       }
       elementos(respuesta)
+      console.log(postsViews)
+      console.log(respuesta.data.content)
       postsViews = [...postsViews, ...respuesta.data.content]
+
+      console.log(postsViews)
       setContador((cont) => cont + 3)
     } else {
       console.log(respuesta)
@@ -197,7 +178,6 @@ function MyAccount () {
   const [contador, setContador] = useState(0)
   const [canDelete, setCanDelete] = useState(true)
   const [visible, setVisible] = useState(false)
-  let postsViews: any[] = []
 
   const feedBackFile = useRef<HTMLImageElement>(null)
   const [file, setFile] = useState<File | null>(null)
@@ -253,15 +233,15 @@ function MyAccount () {
           </form>
       </div>
 
-      <div className="marco" ref={marco}>
+      <div className={style.postContainer} ref={marco}>
           { !postsViews
             ? null
-            : postsViews.map((e, index) => <PostComponent key={index} url={e.url} mesage={e.mesage} fecha={e.fecha}/>)
+            : postsViews.map((e, index) => <PostComponent key={index} url={e.postImg} mesage={e.desc} fecha={e.fecha}/>)
           }
       </div>
 
       <div style={{ height: '24px' }} ref={loader}></div>
-      <div className="FLEXBOX JUSTIFY-CONTENT">
+      <div className={style.doneContainer}>
           <div ref={noMorePost} className="div-para-marco FLEXBOX ALIGN-ITEMS" style={{ display: 'none' }}>
               <p className=" fuente">ya no hay mas fotos?</p>
           </div>
