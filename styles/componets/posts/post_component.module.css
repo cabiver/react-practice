@@ -1,0 +1,11 @@
+
+.posts__Container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+@media screen and (min-width: 700px){
+    .posts__Container {
+        width: 80%;
+    }
+}

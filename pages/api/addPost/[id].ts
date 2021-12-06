@@ -22,7 +22,7 @@ const saveFile = async (fileDirTempleta:any, fileName: any) => {
 
   const data :Buffer = fs.readFileSync(fileDirTempleta)
   // console.log(data)
-  const resultado = await fs.writeFileSync(`./public/posts/${fileName}`, data)
+  await fs.writeFileSync(`./public/posts/${fileName}`, data)
   // const resultado = await fs.writeFileSync(`../../../public/${file.originalFilename}`, data)
   // console.log(resultado)
   // await fs.unlinkSync(file.path)
@@ -46,7 +46,7 @@ export default async function handler (
     }
     const objetoVerificacion = verificacion(cookie)
     if (!objetoVerificacion.metodo) {
-      res.status(404).send('no se ah encontrado el usuario')
+      res.status(404).send({ mensaje: 'no se ah encontrado el usuario' })
       return
     }
     // const imagen = req.files.image
@@ -55,7 +55,7 @@ export default async function handler (
     //   return
     // }
     if (!user) {
-      res.status(404).send('no se ah encontrado el usuario')
+      res.status(404).send({ mensaje: 'no se ah encontrado el usuario' })
     }
     const form = new formidable.IncomingForm()
     // console.log(form)
@@ -64,23 +64,11 @@ export default async function handler (
     // console.log(fields)
       const desc = Date() + '█ ' + fields.description
       const nombreimagen = uuidv4() + files.image.originalFilename
-      const postImg = `./public/posts/${nombreimagen}`
+      const postImg = `/posts/${nombreimagen}`
       await saveFile(files.image.filepath, nombreimagen)
       await db.collection('usuarios').updateOne({ usuari: user.usuari }, { $push: { post: { $each: [{ postImg, desc }], $position: 0 } } })
       // console.log(files.image.filepath)
       // return { image: files.image, body: fields }
     })
-
-    // const desc = Date() + '█ ' + req.body.description
-    // const nombreimagen = uuidv4() + imagen.name
-    //
-    // imagen.name = nombreimagen
-    // imagen.mv(path.join(pages, postImg), err => {
-    //   if (err) {
-    //     return res.status(402)
-    //   }
-    // })
-
-    // res.status(200).send('all great')
   }
 }

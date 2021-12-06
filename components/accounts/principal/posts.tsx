@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import cookies from 'js-cookie'
+import '@styles/componets/posts/post_component.module.css'
+import PostComponent from '../../posts/containerPost'
 // import Image from 'next/image'
 import { useRouter } from 'next/router'
 import style from '@styles/componets/posts/posts.module.css'
@@ -31,13 +33,13 @@ function MyAccount () {
     if (mesComparador === 'Dec') return 'Diciembre'
     return mesComparador
   }
-  function createX (element : any) {
-    const divDelete = document.createElement('img')
-    divDelete.setAttribute('class', 'deleteX deleteListener')
-    divDelete.setAttribute('referen', element)
-    divDelete.setAttribute('src', 'images/Transparent_X.png')
-    return divDelete
-  }
+  // function createX (element : any) {
+  //   const divDelete = document.createElement('img')
+  //   divDelete.setAttribute('class', 'deleteX deleteListener')
+  //   divDelete.setAttribute('referen', element)
+  //   divDelete.setAttribute('src', 'images/Transparent_X.png')
+  //   return divDelete
+  // }
   function actualizarDelete () {
     const arrayAllDelete = document.querySelectorAll('.deleteListener')
     for (let index = 0; index < arrayAllDelete.length; index++) {
@@ -67,14 +69,6 @@ function MyAccount () {
       return
     }
     const descrip = complement.split('█')
-    const nars = document.createElement('div')
-    const content = document.createElement('div')
-    ast.setAttribute('src', element)
-    ast.setAttribute('class', ' precentacion')
-    const descr = document.createElement('p')
-    descr.setAttribute('class', ' fuente')
-
-    const fechaDePosteo = document.createElement('p')
     const fecha = descrip[0].split(' ')
     const dia = fecha[0]
     const mes = fecha[1]
@@ -82,24 +76,34 @@ function MyAccount () {
     const year = fecha[3]
 
     const fechaText = convertidorADias(dia) + ' ' + convertidorAMes(mes) + ' ' + diaDelMes + ' ' + year
-    fechaDePosteo.innerHTML = fechaText
-    fechaDePosteo.setAttribute('class', 'fecha-post')
-    const contentenFlex = document.createElement('div')
-    contentenFlex.setAttribute('class', 'flex-para-contenido')
-    const complemento = document.createElement('div')
-    complemento.setAttribute('class', 'flexGrow')
-    const divDelete = createX(element)
-    contentenFlex.appendChild(fechaDePosteo)
-    contentenFlex.appendChild(complemento)
-    contentenFlex.appendChild(divDelete)
-    content.appendChild(contentenFlex)
-    descr.innerHTML = descrip[1]
-    content.appendChild(nars)
-    nars.appendChild(descr)
-    nars.appendChild(ast)
-    nars.setAttribute('class', 'mar')
-    content.setAttribute('class', 'div-para-marco')
-    marco.current.appendChild(content)
+
+    // const nars:HTMLDivElement = document.createElement('div')
+    // const content:HTMLDivElement = document.createElement('div')
+    // ast.setAttribute('src', element)
+    // ast.setAttribute('class', ' precentacion')
+    // const descr :HTMLParagraphElement = document.createElement('p')
+    // descr.setAttribute('class', ' fuente')
+
+    // const fechaDePosteo = document.createElement('p')
+
+    // fechaDePosteo.innerHTML = fechaText
+    // fechaDePosteo.setAttribute('class', 'fecha-post')
+    // const contentenFlex = document.createElement('div')
+    // contentenFlex.setAttribute('class', 'flex-para-contenido')
+    // const complemento = document.createElement('div')
+    // complemento.setAttribute('class', 'flexGrow')
+    // const divDelete = createX(element)
+    // contentenFlex.appendChild(fechaDePosteo)
+    // contentenFlex.appendChild(complemento)
+    // contentenFlex.appendChild(divDelete)
+    // content.appendChild(contentenFlex)
+    // descr.innerHTML = descrip[1]
+    // content.appendChild(nars)
+    // nars.appendChild(descr)
+    // nars.appendChild(ast)
+    // nars.classList.add('mar')
+    // content.setAttribute('className', 'posts__Container')
+    // marco.current.appendChild(content)
   }
   function createMorePhoto () {
     setLimit((e) => true)
@@ -113,7 +117,8 @@ function MyAccount () {
     // console.log(p.data.content)
 
     const op = p.data.content
-    if (!p) {
+    console.log(op)
+    if (p) {
       op.forEach((element:any) => {
         const extencion = element.postImg.split('.')
         if (extencion[(extencion.length - 1)] === 'mp4' || extencion[(extencion.length - 1)] === 'avi') {
@@ -156,6 +161,7 @@ function MyAccount () {
         return
       }
       elementos(respuesta)
+      postsViews = [...postsViews, ...respuesta.data.content]
       setContador((cont) => cont + 3)
     } else {
       console.log(respuesta)
@@ -191,20 +197,20 @@ function MyAccount () {
   const [contador, setContador] = useState(0)
   const [canDelete, setCanDelete] = useState(true)
   const [visible, setVisible] = useState(false)
+  let postsViews: any[] = []
 
   const feedBackFile = useRef<HTMLImageElement>(null)
   const [file, setFile] = useState<File | null>(null)
   const formPost = useRef<HTMLFormElement>(null)
   const noMorePost = useRef<HTMLDivElement>(null)
-  const refCanLoad = useRef(cal)
   const loader = useRef(null)
   const marco = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    refCanLoad.current()
-  }, [visible, inicial])
+    cal()
+  }, [visible, inicial, cal])
 
   useEffect(() => {
-    console.log(feedBackFile)
+    // console.log(feedBackFile)
     if (!file || !feedBackFile.current) {
       return
     }
@@ -235,7 +241,7 @@ function MyAccount () {
                     {
                       !file
                         ? <>insert some image or video</>
-                        : <img ref={feedBackFile} className={style.more_images__img}/>
+                        : <img ref={feedBackFile} alt="render post image" className={style.more_images__img}/>
                     }
                 </div>
                 {/* <video id="loadVideoMobile" className="render-de-video-mobile" src=""></video>
@@ -248,7 +254,10 @@ function MyAccount () {
       </div>
 
       <div className="marco" ref={marco}>
-
+          { !postsViews
+            ? null
+            : postsViews.map((e, index) => <PostComponent key={index} url={e.url} mesage={e.mesage} fecha={e.fecha}/>)
+          }
       </div>
 
       <div style={{ height: '24px' }} ref={loader}></div>

@@ -114,7 +114,7 @@ const Header = () => {
                   ? <div>
                       welcome to the playground, follow me
                     </div>
-                  : <div>
+                  : (<div>
                       <div className={styles.header__session_login}>
                       <div className={styles.header__userName}>
                         tengo icon
@@ -127,7 +127,7 @@ const Header = () => {
                         alt="yo que se">
                       </Image>
                     </div>
-                  </div>
+                  </div>)
               }
             </div>
           </div>
