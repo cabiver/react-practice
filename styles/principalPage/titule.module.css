@@ -3,30 +3,38 @@
     display: flex;
     justify-content: center;
 }
+.titule_center__margin {
+    margin: 12px 0;
+}
 .titule_container {
-    position: absolute;
-    transform: translate(0,calc(100% *-1.5));
     width: 100%;
     width: 90%;
+    padding: 3px;
     z-index: 70;
     display: flex;
+    position: relative;
     justify-content: center;
     align-items: center;
     ---titule_body : polygon(2% 14%, 10% 0%, 62% 4%, 93% 0%, 100% 14%, 99.7% 47%, 100% 77%, 99% 92%, 97% 98%, 84% 92%, 71% 98%, 66% 100%, 44% 96%, 17% 100%, 9% 94%, 1% 86%,0.6% 29%);
+}
+.titule_container__absolute {
+    position: absolute;
+    transform: translate(0,calc(100% *-1.5));
     
 }
-.titule_shadow {
+.titule_container::before {
+    content: "";
     position: absolute;
     height: 110%;
-    width: 96%;
-    transform: scale(12px);
+    width: 100%;
+    /* transform: scale(12px); */
     clip-path: var(---titule_body);
     background-color: var(--shadow);
 }
 .titule__text{
     text-align: center;
     padding: 12px;
-    width: 90%;
+    width: 100%;
     border-radius: 10px;
     clip-path: var(---titule_body);
     background-color: var(--black_c);

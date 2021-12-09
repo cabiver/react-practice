@@ -76,9 +76,6 @@ const Header = () => {
     options.current.style.display = create ? '' : 'none'
   }, [create, router])
   useEffect(() => {
-    // if (!marginHeader.current) {
-    //   return
-    // }
     if (!marginHeader.current) {
       return
     }

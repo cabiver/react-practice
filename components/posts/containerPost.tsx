@@ -1,7 +1,7 @@
 import style from '@styles/componets/posts/post_component.module.css'
 import Image from 'next/image'
 const ConteinerPost = (props: any) => {
-  console.log(props)
+  // console.log(props)
   const convertidorADias = (diaComparador : string) => {
     if (diaComparador === 'Mon') return 'lunes'
     if (diaComparador === 'Tues') return 'martes'
@@ -40,20 +40,30 @@ const ConteinerPost = (props: any) => {
   return (
     <>
     <div className={style.posts__Container}>
+      <div className={style.posts__body}>
       <div>
-        <p>
+        <p className={style.posts__date}>
           {fechaText}
         </p>
-        <div className={style.flexGrow}>
+        {/* <div className={style.flexGrow}>
 
-        </div>
+        </div> */}
       </div>
       <div>
-        <div>
           {descrip[1]}
-        </div>
-        <Image src={props.url} alt="" width="1500" height="1500" />
       </div>
+
+    <div className={style.posts_image}>
+
+        <Image
+        src={props.url}
+        alt=""
+        // sizes="100vw"
+        objectFit="contain"
+        layout="fill"/>
+      </div>
+      </div>
+
     </div>
     </>
   )

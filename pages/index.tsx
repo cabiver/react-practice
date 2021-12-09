@@ -4,7 +4,8 @@ import Text from '../components/principalPage/text'
 import ElementLi from '../components/principalPage/elementLi'
 import Footer from '../components/principalPage/footer'
 import style from '@styles/principalPage/index.module.css'
-import Titule from '../components/principalPage/titule'
+import Titule from '../components/shareds/titule'
+// import Titule from '@components/shareds/titule'
 
 const Home: NextPage = () => {
   const dataList :Array<string> = [
@@ -37,8 +38,10 @@ const Home: NextPage = () => {
   ]
   return (
     <>
-      <Full></Full>
-      <Titule></Titule>
+      <Full/>
+      <Titule
+      absolute={true}
+      mensage="mi pagina para probar mi forntend y backend"/>
       <div className={style.text_area}>
         <Text></Text>
         {dataList.map((el:string, index:number) => <ElementLi key={index} text={el}/>)}

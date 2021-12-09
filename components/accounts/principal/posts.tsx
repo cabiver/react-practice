@@ -6,7 +6,7 @@ import PostComponent from '../../posts/containerPost'
 // import Image from 'next/image'
 import { useRouter } from 'next/router'
 import style from '@styles/componets/posts/posts.module.css'
-
+import Titule from '../../shareds/titule'
 let postsViews: any[] = []
 
 function MyAccount () {
@@ -17,71 +17,30 @@ function MyAccount () {
   //   divDelete.setAttribute('src', 'images/Transparent_X.png')
   //   return divDelete
   // }
-  function actualizarDelete () {
-    const arrayAllDelete = document.querySelectorAll('.deleteListener')
-    for (let index = 0; index < arrayAllDelete.length; index++) {
-      arrayAllDelete[index].addEventListener('click', async (e) => {
-        const target = e.target as HTMLDivElement
-        if (!target) {
-          return
-        }
-        if (canDelete) {
-          setCanDelete(false)
-          const formdata = new FormData()
-          formdata.set('parametros', target.attributes.referen.nodeValue)
+  // function actualizarDelete () {
+  //   const arrayAllDelete = document.querySelectorAll('.deleteListener')
+  //   for (let index = 0; index < arrayAllDelete.length; index++) {
+  //     arrayAllDelete[index].addEventListener('click', async (e) => {
+  //       const target = e.target as HTMLDivElement
+  //       if (!target) {
+  //         return
+  //       }
+  //       if (canDelete) {
+  //         setCanDelete(false)
+  //         const formdata = new FormData()
+  //         formdata.set('parametros', target.attributes.referen.nodeValue)
 
-          const element = await axios.post('/deleteimagen' + window.location.pathname, formdata)
-          console.log(element)
-          if (element.statusText === 'OK') {
-            window.location.reload()
-          } else {
-            console.log('ocurrio un fallo al eliminar')
-          }
-        }
-      })
-    }
-  }
-  function createImgVideo (element: string, complement:string, ast:HTMLImageElement|HTMLVideoElement|HTMLAudioElement) {
-    // if (!marco.current) {
-
-    // }
-    // const descrip = complement.split('█')
-    // const fecha = descrip[0].split(' ')
-    // const dia = fecha[0]
-    // const mes = fecha[1]
-    // const diaDelMes = fecha[2]
-    // const year = fecha[3]
-
-    // const fechaText = convertidorADias(dia) + ' ' + convertidorAMes(mes) + ' ' + diaDelMes + ' ' + year
-
-    // const nars:HTMLDivElement = document.createElement('div')
-    // const content:HTMLDivElement = document.createElement('div')
-    // ast.setAttribute('src', element)
-    // ast.setAttribute('class', ' precentacion')
-    // const descr :HTMLParagraphElement = document.createElement('p')
-    // descr.setAttribute('class', ' fuente')
-
-    // const fechaDePosteo = document.createElement('p')
-
-    // fechaDePosteo.innerHTML = fechaText
-    // fechaDePosteo.setAttribute('class', 'fecha-post')
-    // const contentenFlex = document.createElement('div')
-    // contentenFlex.setAttribute('class', 'flex-para-contenido')
-    // const complemento = document.createElement('div')
-    // complemento.setAttribute('class', 'flexGrow')
-    // const divDelete = createX(element)
-    // contentenFlex.appendChild(fechaDePosteo)
-    // contentenFlex.appendChild(complemento)
-    // contentenFlex.appendChild(divDelete)
-    // content.appendChild(contentenFlex)
-    // descr.innerHTML = descrip[1]
-    // content.appendChild(nars)
-    // nars.appendChild(descr)
-    // nars.appendChild(ast)
-    // nars.classList.add('mar')
-    // content.setAttribute('className', 'posts__Container')
-    // marco.current.appendChild(content)
-  }
+  //         const element = await axios.post('/deleteimagen' + window.location.pathname, formdata)
+  //         console.log(element)
+  //         if (element.statusText === 'OK') {
+  //           window.location.reload()
+  //         } else {
+  //           console.log('ocurrio un fallo al eliminar')
+  //         }
+  //       }
+  //     })
+  //   }
+  // }
   function createMorePhoto () {
     setLimit((e) => true)
     if (!noMorePost.current) {
@@ -89,39 +48,12 @@ function MyAccount () {
     }
     noMorePost.current.style.display = ''
   }
-  function elementos (p:any) {
-    // console.log(p)
-    // console.log(p.data.content)
-
-    const op = p.data.content
-    // console.log(op)
-    if (p) {
-      op.forEach((element:any) => {
-        const extencion = element.postImg.split('.')
-        if (extencion[(extencion.length - 1)] === 'mp4' || extencion[(extencion.length - 1)] === 'avi') {
-          const ast = document.createElement('video')
-          ast.setAttribute('controls', '')
-          createImgVideo(element.postImg, element.desc, ast)
-        } else {
-          const ast = document.createElement('img')
-          createImgVideo(element.postImg, element.desc, ast)
-        }
-      })
-      if (op.length < 3) {
-        createMorePhoto()
-      }
-      actualizarDelete()
-      // console.log(contador)
-      setTimeout(() => {
-        setCanload(true)
-      }, 2000)
-    }
-  }
   const cal = async () => {
     if (!inicial.query.id) {
       return
     }
     if (!canload || limit) {
+      console.log('el limite')
       return
     }
     setCanload(false)
@@ -137,12 +69,17 @@ function MyAccount () {
         createMorePhoto()
         return
       }
-      elementos(respuesta)
-      console.log(postsViews)
-      console.log(respuesta.data.content)
+      if (respuesta.data.content.length < 3) {
+        createMorePhoto()
+      }
+      setTimeout(() => {
+        setCanload(true)
+      }, 2000)
+      // console.log(postsViews)
+      // console.log(respuesta.data.content)
       postsViews = [...postsViews, ...respuesta.data.content]
 
-      console.log(postsViews)
+      // console.log(postsViews)
       setContador((cont) => cont + 3)
     } else {
       console.log(respuesta)
@@ -176,7 +113,7 @@ function MyAccount () {
   const [canload, setCanload] = useState(true)
   const [limit, setLimit] = useState(false)
   const [contador, setContador] = useState(0)
-  const [canDelete, setCanDelete] = useState(true)
+  // const [canDelete, setCanDelete] = useState(true)
   const [visible, setVisible] = useState(false)
 
   const feedBackFile = useRef<HTMLImageElement>(null)
@@ -241,10 +178,10 @@ function MyAccount () {
       </div>
 
       <div style={{ height: '24px' }} ref={loader}></div>
-      <div className={style.doneContainer}>
-          <div ref={noMorePost} className="div-para-marco FLEXBOX ALIGN-ITEMS" style={{ display: 'none' }}>
-              <p className=" fuente">ya no hay mas fotos?</p>
-          </div>
+      <div ref={noMorePost} style={{ display: 'none' }}>
+        <Titule
+        margin={true}
+        mensage="there isn't any post"/>
       </div>
 
     </div>
