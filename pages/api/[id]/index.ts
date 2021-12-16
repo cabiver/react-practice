@@ -4,6 +4,7 @@ type Data = {
   mensaje: string
   background : string | null
   icon: string | null
+  exist: boolean
 }
 
 export default async function handler (
@@ -15,9 +16,11 @@ export default async function handler (
     const user = await db.collection('usuarios').findOne({
       usuari: req.query.id
     })
+    // console.log(user)
     if (!user) {
-      res.status(401)
+      res.status(203).send({ mensaje: 'url de imagen y icono enviada', background: null, icon: null, exist: false })
+      return
     }
-    res.send({ mensaje: 'url de imagen y icono enviada', background: user.background, icon: user.icon })
+    res.send({ mensaje: 'url de imagen y icono enviada', background: user.background, icon: user.icon, exist: true })
   }
 }

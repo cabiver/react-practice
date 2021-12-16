@@ -55,6 +55,15 @@
     border: 1px none var(--red_d);
     border-style: none none solid solid;
 }
+.window_button_option {
+    padding: 0 12px 0 12px;
+    border-radius: 0 0 16px 16px;
+    background-image: linear-gradient(to top, var(--red_a) 20%, transparent 40%);
+}
+.window_button_option:hover {
+    background-image: linear-gradient(to top, var(--color_hover) 20%, transparent 40%);
+}
+
 
 @media screen and (min-width:900px) {
     

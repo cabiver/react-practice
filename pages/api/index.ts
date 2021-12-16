@@ -46,7 +46,7 @@ export default async function handler (
     const user = await db.collection('usuarios').findOne({
       usuari: primer.usuari
     })
-
+    // console.log('porque demora tanto')
     if (user) {
       if (descrypted(user.password) === op.contra) {
         const token = jwt.sign({

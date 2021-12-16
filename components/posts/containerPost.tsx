@@ -1,7 +1,7 @@
 import style from '@styles/componets/posts/post_component.module.css'
 import Image from 'next/image'
+import { useState } from 'react'
 const ConteinerPost = (props: any) => {
-  // console.log(props)
   const convertidorADias = (diaComparador : string) => {
     if (diaComparador === 'Mon') return 'lunes'
     if (diaComparador === 'Tues') return 'martes'
@@ -36,11 +36,12 @@ const ConteinerPost = (props: any) => {
   const year = fecha[3]
 
   const fechaText = convertidorADias(dia) + ' ' + convertidorAMes(mes) + ' ' + diaDelMes + ' ' + year
+  const body = useState(Math.random())
 
   return (
     <>
-    <div className={style.posts__Container}>
-      <div className={style.posts__body}>
+    <div className={`${style.posts__Container} ${body[0] <= 0.3 ? style.clip_path1 : body[0] <= 0.6 ? style.clip_path2 : style.clip_path3}`}>
+      <div className={`${style.posts__body} ${body[0] <= 0.3 ? style.clip_path1 : body[0] <= 0.6 ? style.clip_path2 : style.clip_path3}`}>
       <div>
         <p className={style.posts__date}>
           {fechaText}
@@ -58,7 +59,6 @@ const ConteinerPost = (props: any) => {
         <Image
         src={props.url}
         alt=""
-        // sizes="100vw"
         objectFit="contain"
         layout="fill"/>
       </div>

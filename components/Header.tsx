@@ -4,12 +4,13 @@ import styles from '@styles/principalPage/header.module.css'
 import styleInput from '@styles/servis/inputs.module.css'
 import axios from 'axios'
 import Image from 'next/image'
-import cookies from 'js-cookie'
+import Cookies from 'js-cookie'
 import { changePassword } from '../utility Functions/changePassword'
 
 const Header = () => {
   const [logged, setLogged] = useState(false)
-  const [icon, setIcon] = useState(cookies.get('icon'))
+  const [iconSession, setIconSession] = useState(Cookies.get('icon'))
+  const [nameSession, setNameSession] = useState(Cookies.get('userName'))
   const router = useRouter()
   const options = useRef<HTMLDivElement>(null)
   const loggedOff = useRef<HTMLDivElement>(null)
@@ -29,7 +30,7 @@ const Header = () => {
   }
   const handleSubmit = async (e: any) => {
     e.preventDefault()
-    const { id }: any = router.query
+    // const { id }: any = router.query
     if (!session?.current) {
       return
     }
@@ -40,7 +41,7 @@ const Header = () => {
       return
     }
     setRequestMessege('cargando')
-    if (id === Form.get('uss')) {
+    if (Cookies.get('token')) {
       console.log('genius, you have ben in your session')
       return
     }
@@ -60,7 +61,8 @@ const Header = () => {
         document.cookie = 'icon=' + respuesta.data.icon
         document.cookie = 'background=' + respuesta.data.background
         router.push(`/${Form.get('uss')}`)
-        setIcon(respuesta.data.icon)
+        setIconSession(respuesta.data.icon)
+        setNameSession(respuesta.data.nombre)
         setLogged(true)
       } else {
         setRequestMessege(mensaje)
@@ -83,7 +85,7 @@ const Header = () => {
   }, [PrincipalHeader.current?.clientHeight, marginHeader])
   useEffect(() => {
     // console.log(logged)
-    if (!cookies.get('token')) {
+    if (!Cookies.get('token')) {
       return
     }
     if (!loggedOff.current || !loggedOn.current) {
@@ -107,24 +109,23 @@ const Header = () => {
           <div onClick={handleClickSession} className={styles.nav}>
             <div className={styles.header__container__button}>
               {
-                !icon
-                  ? <div>
-                      welcome to the playground, follow me
+                logged
+                  ? <>
+                  <div className={styles.header__session_login}>
+                    <div className={styles.header__userName}>
+                      {nameSession}
                     </div>
-                  : (<div>
-                      <div className={styles.header__session_login}>
-                      <div className={styles.header__userName}>
-                        tengo icon
-                      </div>
-                      <Image
-                        className={styles.header__icon}
-                        src={`/${icon}`}
-                        width="50"
-                        height="50"
-                        alt="yo que se">
-                      </Image>
-                    </div>
-                  </div>)
+                    <Image
+                      className={styles.header__icon}
+                      src={`/${iconSession}`}
+                      width="50"
+                      height="50"
+                      alt="yo que se"
+                      priority={true}>
+                    </Image>
+                  </div>
+                  </>
+                  : <>sign in</>
               }
             </div>
           </div>
@@ -147,7 +148,9 @@ const Header = () => {
               <label dangerouslySetInnerHTML={{ __html: requestMessege }}></label>
             </form>
             : <div className={styles.window_session}>
-              yo que se
+              <div className={styles.window_button_option}>
+                sign out
+              </div>
             </div>
           }
 

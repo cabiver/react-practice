@@ -1,4 +1,4 @@
-
+/* 
 .posts__Container {
     width: 100%;
     display: flex;
@@ -25,6 +25,63 @@
     background-color: var(--black_c);
     padding: calc(( -1vw / 1.8) + 40px) calc(( -1vw / 1.8) + 60px);
     clip-path: polygon(0 4%, 95% 0, 98% 96%, 8% 100%);
+
+}
+
+.posts_image {
+    position: relative;
+    flex: 1
+}
+.posts__date {
+    text-align: end;
+    color: var(--black_a);
+}
+
+@media screen and (min-width: 700px){
+    .posts__Container {
+        width: 80%;
+    }
+} 
+*/
+.posts__Container {
+    width: 100%;
+    display: flex;
+    padding: 12px;
+    justify-content: center;
+    position: relative;
+}
+
+.clip_path1 {
+    clip-path: polygon(0 4%, 95% 0, 98% 96%, 8% 100%);
+}
+
+.clip_path2 {
+    clip-path: polygon(6% 5%, 98% 2%, 94% 96%, 4% 100%);
+}
+.clip_path3 {
+    clip-path: polygon(5% 5%, 99% 1%, 95% 97%, 3% 100%);
+}
+
+
+.posts__Container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--shadow);
+    /* clip-path: polygon(0 4%, 95% 0, 98% 96%, 8% 100%); */
+}
+
+.posts__body {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    background-color: var(--black_c);
+    padding: calc(( -1vw / 1.8) + 40px) calc(( -1vw / 1.8) + 60px);
+    /* clip-path: polygon(0 4%, 95% 0, 98% 96%, 8% 100%); */
 
 }
 

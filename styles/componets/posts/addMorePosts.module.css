@@ -6,6 +6,7 @@
     justify-content: center;
 }
 .more_images__window{
+    margin-top: 12px;
     width: 100%;
     padding: 12px;
     display: flex;

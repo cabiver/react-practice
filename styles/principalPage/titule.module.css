@@ -19,9 +19,8 @@
 }
 .titule_container__absolute {
     position: absolute;
-    transform: translate(0,calc(100% *-1.5));
-    
-}
+    transform: translate(0,calc(100% *-1.5)); 
+} 
 .titule_container::before {
     content: "";
     position: absolute;

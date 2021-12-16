@@ -1,51 +1,50 @@
 import { useRouter } from 'next/router'
-import Image from 'next/image'
 import axios from 'axios'
-// import Cookies from 'js-cookie'
+import Cookies from 'js-cookie'
 import { useEffect, useState } from 'react'
-import Posts from '../../components/accounts/principal/posts'
-
+import Error404 from '../404'
+import Exist from '../../components/accounts/principal/accountExist'
 function MyPage () {
   const inicial = useRouter()
-  const [background, setBackground] = useState(null)
-  // useEffect(() => {
-  // const dataBackground = Cookies.get('background')
-  //   if (!dataBackground) {
-  //     return
-  //   }
-  //   console.log(dataBackground)
-  //   setBackground(dataBackground)
-  // }, [])
+  const [accountExist, setAccountExist] = useState<boolean | null | undefined>(undefined)
+  const [background, setBackground] = useState<string | null>(null)
   useEffect(() => {
     if (!inicial.query.id) {
       return
     }
-    axios.post('/api/' + inicial.query.id, {})
-      .then((res) => {
-        setBackground(res.data.background)
-      })
+    const { id } = inicial.query
+
+    // console.log(id)
+    // console.log(Cookies.get('userName'))
+    if (id === Cookies.get('userName')) {
+      const dataBackground = Cookies.get('background')
+
+      if (dataBackground !== undefined) {
+        setBackground(dataBackground)
+        setAccountExist(true)
+        // console.log('ya tienes un background')
+        return
+      }
+    }
+
+    const peticion = async () => {
+      const res = await axios.post('/api/' + inicial.query.id, {})
+      console.log(res)
+      setBackground(res.data.background)
+      setAccountExist(res.data.exist)
+    }
+    peticion()
   }, [inicial])
   return (
-  <>
-    {
-      background
-        ? <Image src={`/${background}`}
-      width="2688"
-      height="1512"
-
-      layout="responsive"
-      alt="persona 5">
-
-      </Image>
-        : <div>
-        loaad
-      </div>
-    }
-    <h1 > hola señorita como lo llevas
-
-    </h1>
-    <Posts></Posts>
-  </>
+    <>
+      {
+        accountExist
+          ? <Exist background={background}/>
+          : accountExist === undefined
+            ? <>loding</>
+            : <Error404/>
+      }
+    </>
   )
 }
 export default MyPage
