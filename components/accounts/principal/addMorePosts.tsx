@@ -11,14 +11,10 @@ import Titule from '../../shareds/titule'
 
 function MyAccount () {
   const [postsViews, setPostsViews] = useState<any[]>([])
+
   function createMorePhoto () {
     setLimit((e) => true)
-    if (!noMorePost.current) {
-      return
-    }
-    noMorePost.current.style.display = ''
   }
-
   const handleChange = () => {
     if (!formPost.current) {
       return
@@ -29,7 +25,6 @@ function MyAccount () {
     }
     const data = form.get('image') as File
     setFile(data)
-    // console.log(file)
   }
   const handleSubmit = (e:any) => {
     e.preventDefault()
@@ -44,8 +39,6 @@ function MyAccount () {
     des
       ? form.set('description', des)
       : form.set('description', '')
-
-    // console.log(form.get('image'))
     axios.post(`/api/addPost/${name}`, form)
   }
   const handelDrag = (e: any) => {
@@ -61,15 +54,6 @@ function MyAccount () {
       return
     }
     setFile(e.dataTransfer.files[0])
-    // const reader = new FileReader()
-    // reader.readAsArrayBuffer(e.dataTransfer.files[0])
-    // reader.addEventListener('load', e => {
-    //   if (!e.currentTarget) {
-    //     return
-    //   }
-    //   const videofinalizado = new Blob([new Uint8Array(e.currentTarget?.result)], { type: 'video/mp4' })
-    //   const url = URL.createObjectURL(videofinalizado)
-    // })
   }
 
   const inicial = useRouter()
@@ -81,7 +65,6 @@ function MyAccount () {
   const [feedBackFile, setFeedBackFile] = useState<string>('')
   const [file, setFile] = useState<File | null>(null)
   const formPost = useRef<HTMLFormElement>(null)
-  const noMorePost = useRef<HTMLDivElement>(null)
   const loader = useRef(null)
   const marco = useRef<HTMLDivElement>(null)
   // const cal =
@@ -110,7 +93,7 @@ function MyAccount () {
         setCanload(true)
       }, 2000)
       // console.log(postsViews)
-      // console.log(respuesta.data.content)
+      console.log(respuesta)
       setPostsViews(previousPosts => [...previousPosts, ...respuesta.data.content])
       setContador((cont) => cont + 3)
     } else {
@@ -169,11 +152,16 @@ function MyAccount () {
       </div>
 
       <div style={{ height: '24px' }} ref={loader}></div>
-      <div ref={noMorePost} style={{ display: 'none' }}>
-        <Titule
-        margin={true}
-        mensage="there isn't any post"/>
-      </div>
+
+      {
+        limit
+          ? <Titule
+          margin={true}
+          mensage="there isn't any post"/>
+          : <Titule
+          margin={true}
+          mensage="loading..."/>
+      }
 
     </div>
 

@@ -12,7 +12,6 @@ const Header = () => {
   const [iconSession, setIconSession] = useState(Cookies.get('icon'))
   const [nameSession, setNameSession] = useState(Cookies.get('userName'))
   const router = useRouter()
-  const options = useRef<HTMLDivElement>(null)
   const loggedOff = useRef<HTMLDivElement>(null)
   const loggedOn = useRef<HTMLDivElement>(null)
   const PrincipalHeader = useRef<HTMLDivElement>(null)
@@ -24,6 +23,10 @@ const Header = () => {
   const handelPassword = () => {
     setVisiblePass((e) => !e)
     changePassword('header-password', visiblePass)
+  }
+  const handelSignOut = () => {
+    Cookies.remove('token')
+    window.location.assign('/')
   }
   const handleClickSession = () => {
     setCreate(exist => !exist)
@@ -71,12 +74,6 @@ const Header = () => {
       setRequestMessege('contraseña o usuario incorrecto')
     }
   }
-  useEffect(() => {
-    if (!options.current) {
-      return
-    }
-    options.current.style.display = create ? '' : 'none'
-  }, [create, router])
   useEffect(() => {
     if (!marginHeader.current) {
       return
@@ -130,7 +127,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-        <div ref={options}>
+        <div style={{ display: create ? '' : 'none' }}>
           {!logged
             ? <form ref={session} className={styles.window_session} onSubmit={(e) => handleSubmit(e)} action="" >
               <label>usuari</label>
@@ -148,7 +145,7 @@ const Header = () => {
               <label dangerouslySetInnerHTML={{ __html: requestMessege }}></label>
             </form>
             : <div className={styles.window_session}>
-              <div className={styles.window_button_option}>
+              <div onClick={handelSignOut} className={styles.window_button_option}>
                 sign out
               </div>
             </div>
