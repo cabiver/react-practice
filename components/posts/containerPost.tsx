@@ -2,6 +2,7 @@ import style from '@styles/componets/posts/post_component.module.css'
 import Image from 'next/image'
 import { useState } from 'react'
 const ConteinerPost = (props: any) => {
+  const body = useState(Math.random())
   const convertidorADias = (diaComparador : string) => {
     if (diaComparador === 'Mon') return 'lunes'
     if (diaComparador === 'Tues') return 'martes'
@@ -36,7 +37,6 @@ const ConteinerPost = (props: any) => {
   const year = fecha[3]
 
   const fechaText = convertidorADias(dia) + ' ' + convertidorAMes(mes) + ' ' + diaDelMes + ' ' + year
-  const body = useState(Math.random())
 
   return (
     <>

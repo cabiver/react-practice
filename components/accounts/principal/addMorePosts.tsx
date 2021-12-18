@@ -38,9 +38,38 @@ function MyAccount () {
       return
     }
 
-    const form = new FormData(formPost.current)
+    const des = (new FormData(formPost.current)).get('description')
+    const form = new FormData()
+    form.set('image', file)
+    des
+      ? form.set('description', des)
+      : form.set('description', '')
+
     // console.log(form.get('image'))
     axios.post(`/api/addPost/${name}`, form)
+  }
+  const handelDrag = (e: any) => {
+    e.preventDefault()
+    console.log('drag activado')
+  }
+  const handleDrop = (e: any) => {
+    e.preventDefault()
+    console.log(e)
+
+    if (!e.dataTransfer.files[0]) {
+      console.log('no existe el archivo')
+      return
+    }
+    setFile(e.dataTransfer.files[0])
+    // const reader = new FileReader()
+    // reader.readAsArrayBuffer(e.dataTransfer.files[0])
+    // reader.addEventListener('load', e => {
+    //   if (!e.currentTarget) {
+    //     return
+    //   }
+    //   const videofinalizado = new Blob([new Uint8Array(e.currentTarget?.result)], { type: 'video/mp4' })
+    //   const url = URL.createObjectURL(videofinalizado)
+    // })
   }
 
   const inicial = useRouter()
@@ -64,13 +93,11 @@ function MyAccount () {
       return
     }
     setCanload(false)
-    // console.log(inicial.query.id)
     const respuesta = await axios.post(`/api/accounts/${inicial.query.id}`, {
       cont: contador,
       amigosVisitados: []
 
     })
-    // console.log(respuesta)
     if (respuesta.statusText === 'OK') {
       if (respuesta.data.length === 0) {
         createMorePhoto()
@@ -85,22 +112,18 @@ function MyAccount () {
       // console.log(postsViews)
       // console.log(respuesta.data.content)
       setPostsViews(previousPosts => [...previousPosts, ...respuesta.data.content])
-
-      // console.log(postsViews)
       setContador((cont) => cont + 3)
     } else {
       console.log(respuesta)
     }
+    // window.location.reload()
   }, [inicial.query.id, canload, limit, contador])
   useEffect(() => {
     cal()
   }, [visible, cal])
 
   useEffect(() => {
-    console.log('cambio file')
-
     if (!file) {
-      console.log('file null')
       return
     }
     const reader = new FileReader()
@@ -124,7 +147,7 @@ function MyAccount () {
         <form ref={formPost} onSubmit={(e) => handleSubmit(e)} className={style.more_images__window}>
           <input id="imgFile" onChange={handleChange} type="file" name="image" style={{ display: 'none' }}/>
           <label htmlFor="imgFile" className={style.more_images__button}>sube una imagen</label>
-          <div className={style.more_image__load_imge}>
+          <div onDragOver={(e) => handelDrag(e) } onDrop={(e) => handleDrop(e) } className={style.more_image__load_imge}>
             <div id="barra-de-carga"></div>
             <video id="loadVideo" className="render-de-video pc" src="" style={{ width: '0' }}></video>
             {
@@ -133,8 +156,7 @@ function MyAccount () {
                 : <img src={feedBackFile} alt="render post image" className={style.more_images__img}/>
             }
           </div>
-            <p className={style.more_images__guie_inputs}>agrega una description</p>
-          <input className={style.more_images__description} autoComplete="off" type="text" name="description"/>
+          <input className={style.more_images__description} autoComplete="off" type="text" placeholder='add description' name="description"/>
           <button className={style.more_images__button}>subir Post</button>
         </form>
       </div>
