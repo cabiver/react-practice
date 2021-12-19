@@ -30,7 +30,7 @@
     padding: 12px;
     display: flex;
     flex-direction: column;
-    align-content: center;
+    align-items: center;
     text-align: center;
     background-color: var(--black_e);
 }
@@ -38,6 +38,7 @@
     margin-top: 12px;
 }
 .form_container___w40{
+    min-width: 300px;
     width: 40%;
 }
 
@@ -56,6 +57,6 @@
     }
     
     .form_container___w40{
-        width: max-content;
+        width: 50%;
     }   
 }

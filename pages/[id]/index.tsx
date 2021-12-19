@@ -21,9 +21,9 @@ function MyPage () {
       const dataBackground = Cookies.get('background')
       const dataIcon = Cookies.get('icon')
       if (dataBackground !== undefined && dataIcon !== undefined) {
-        setBackground(`/${dataBackground}`)
+        setBackground(dataBackground)
         setAccountExist(true)
-        setIcon(`/${dataIcon}`)
+        setIcon(dataIcon)
         return
       }
     }
@@ -33,7 +33,7 @@ function MyPage () {
       console.log(res)
       setBackground(res.data.background)
       setAccountExist(res.data.exist)
-      setIcon(`/${res.data.icon}`)
+      setIcon(res.data.icon)
     }
     peticion()
   }, [inicial])

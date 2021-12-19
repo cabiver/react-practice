@@ -112,14 +112,18 @@ const Header = () => {
                     <div className={styles.header__userName}>
                       {nameSession}
                     </div>
-                    <Image
-                      className={styles.header__icon}
-                      src={`/${iconSession}`}
-                      width="50"
-                      height="50"
-                      alt="yo que se"
-                      priority={true}>
-                    </Image>
+                    {
+                      iconSession
+                        ? <Image
+                        className={styles.header__icon}
+                        src={iconSession}
+                        width="50"
+                        height="50"
+                        alt="yo que se"
+                        priority={true}>
+                      </Image>
+                        : null
+                    }
                   </div>
                   </>
                   : <>sign in</>

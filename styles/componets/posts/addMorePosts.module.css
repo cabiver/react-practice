@@ -1,5 +1,5 @@
 .more_images__img {
-    width: 95%;
+    width: 45%;
 }
 .more_images{
     display: flex;
@@ -16,6 +16,8 @@
     border-bottom: 1px solid red ;
 }
 .more_images__description{
+    width: 50%;
+    min-width: max-content;
     text-align: center;
     background-color: transparent;
     margin-bottom: 6px;
@@ -33,7 +35,9 @@
 
 @media screen and (min-width: 700px){
     .posts__Container {
-
         width: 80%;
+    }
+    .more_images__img {
+        width: 65%;
     }
 }
