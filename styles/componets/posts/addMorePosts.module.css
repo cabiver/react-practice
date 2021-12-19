@@ -5,30 +5,13 @@
     display: flex;
     justify-content: center;
 }
-.more_images__window{
-    gap: 12px;
-    margin-top: 12px;
-    width: 100%;
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    text-align: center;
-    background-color: var(--black_e);
-}
+
 .more_image__load_imge{
     padding: 17px;
     border: 4px none var(--red_b);
     border-style: dashed solid;
 }
-.more_images__button {
-    padding: 4px;
-    background-color: var(--black_c);
-}
-.more_images__button:hover {
-    background-color: var(--black_b);
-    color: var(--black_c);
-} 
+
 .more_images__guie_inputs{
     border-bottom: 1px solid red ;
 }
@@ -49,9 +32,6 @@
 }
 
 @media screen and (min-width: 700px){
-    .more_images__window{
-        width: 80%;
-    }   
     .posts__Container {
 
         width: 80%;

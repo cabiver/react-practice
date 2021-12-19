@@ -6,8 +6,7 @@
 }
 .input_password {
     position: relative;
-    display: flex;
-    
+    display: flex;    
 }
 .see {
     right: 0;
@@ -23,4 +22,40 @@
     font-family: IrishGrover-Regular;
     border: 2px solid var(--red_d) ;
     background-color: var(--red_b);
+}
+
+.form_container{
+    gap: 12px;
+    width: 100%;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    text-align: center;
+    background-color: var(--black_e);
+}
+.form_margin_top {
+    margin-top: 12px;
+}
+.form_container___w40{
+    width: 40%;
+}
+
+.form__button {
+    padding: 4px;
+    background-color: var(--black_c);
+}
+.form__button:hover {
+    background-color: var(--black_b);
+    color: var(--black_c);
+} 
+
+@media screen and (min-width: 700px){
+    .more_images__window{
+        width: 80%;
+    }
+    
+    .form_container___w40{
+        width: max-content;
+    }   
 }

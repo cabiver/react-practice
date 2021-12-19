@@ -7,7 +7,7 @@ import PostComponent from '../../posts/containerPost'
 import { useRouter } from 'next/router'
 import style from '@styles/componets/posts/addMorePosts.module.css'
 import Titule from '../../shareds/titule'
-// let postsViews: any[] = []
+import styleInput from '@styles/servis/inputs.module.css'
 
 function MyAccount () {
   const [postsViews, setPostsViews] = useState<any[]>([])
@@ -127,9 +127,9 @@ function MyAccount () {
   return (
     <div>
       <div className={style.more_images}>
-        <form ref={formPost} onSubmit={(e) => handleSubmit(e)} className={style.more_images__window}>
+        <form ref={formPost} onSubmit={(e) => handleSubmit(e)} className={`${styleInput.form_container} ${styleInput.form_margin_top}`}>
           <input id="imgFile" onChange={handleChange} type="file" name="image" style={{ display: 'none' }}/>
-          <label htmlFor="imgFile" className={style.more_images__button}>sube una imagen</label>
+          <label htmlFor="imgFile" className={styleInput.form__button}>sube una imagen</label>
           <div onDragOver={(e) => handelDrag(e) } onDrop={(e) => handleDrop(e) } className={style.more_image__load_imge}>
             <div id="barra-de-carga"></div>
             <video id="loadVideo" className="render-de-video pc" src="" style={{ width: '0' }}></video>
@@ -140,7 +140,7 @@ function MyAccount () {
             }
           </div>
           <input className={style.more_images__description} autoComplete="off" type="text" placeholder='add description' name="description"/>
-          <button className={style.more_images__button}>subir Post</button>
+          <button className={styleInput.form__button}>subir Post</button>
         </form>
       </div>
 
