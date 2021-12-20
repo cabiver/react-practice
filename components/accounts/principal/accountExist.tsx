@@ -49,17 +49,18 @@ function AccountExist ({ background, icon, name } :any) {
           <div className={style.background_difuminado}>
             <Image
             src={background}
-            width="2688"
-            height="1512"
+            width="1881.6"
+            height="1058.4"
             alt="persona 5 difuminado"
             priority
             />
           </div>
-          <div className={'body-responsive'}>
+          <div className={style.background_width}>
             <Image
             src={background}
-            width="2688"
-            height="1512"
+            width="1881.6"
+            height="1058.4"
+            objectFit='fill'
             layout="responsive"
             alt="persona 5"
             priority>
@@ -92,7 +93,7 @@ function AccountExist ({ background, icon, name } :any) {
     </div>
     {
       formIconVisible
-        ? <form ref={formIcon} onSubmit={(e) => handelSubmit(e)} className={`${styleInput.form_container} ${styleInput.form_container___w40}`} action="">
+        ? <form ref={formIcon} onSubmit={(e) => handelSubmit(e)} className={`${styleInput.form_container} ${styleInput.form_container__w50}`} action="">
       <input onChange={handleChange} id="iconImag" name="image" type="file" style={{ display: 'none' }}/>
       <label>do you wanna change you icon?</label>
       <label htmlFor="iconImag" className={styleInput.form__button}>upload img</label>

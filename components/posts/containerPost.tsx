@@ -40,8 +40,15 @@ const ConteinerPost = (props: any) => {
 
   return (
     <>
-    <div className={`${style.posts__Container} ${body[0] <= 0.3 ? style.clip_path1 : body[0] <= 0.6 ? style.clip_path2 : style.clip_path3}`}>
-      <div className={`${style.posts__body} ${body[0] <= 0.3 ? style.clip_path1 : body[0] <= 0.6 ? style.clip_path2 : style.clip_path3}`}>
+    <div className={`${style.posts__Container} ${
+      body[0] <= 0.25
+       ? style.clip_path1
+        : body[0] <= 0.5
+         ? style.clip_path2
+          : body[0] <= 0.75
+          ? style.clip_path3
+          : style.clip_path4}`}>
+      <div className={style.posts__body}>
       <div>
         <p className={style.posts__date}>
           {fechaText}

@@ -34,9 +34,6 @@
 }
 
 @media screen and (min-width: 700px){
-    .posts__Container {
-        width: 80%;
-    }
     .more_images__img {
         width: 65%;
     }

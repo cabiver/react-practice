@@ -41,6 +41,10 @@
     min-width: 300px;
     width: 40%;
 }
+.form_container__w80 {
+    border: 4px none var(--shadow);
+    border-style: solid none;
+}
 
 .form__button {
     padding: 4px;
@@ -52,11 +56,13 @@
 } 
 
 @media screen and (min-width: 700px){
-    .more_images__window{
+    .form_container__w80 {
+        border-radius: 18px;
+        border: 5px solid var(--shadow);
         width: 80%;
     }
     
-    .form_container___w40{
+    .form_container__w50{
         width: 50%;
     }   
 }

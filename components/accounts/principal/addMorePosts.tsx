@@ -127,7 +127,7 @@ function MyAccount () {
   return (
     <div>
       <div className={style.more_images}>
-        <form ref={formPost} onSubmit={(e) => handleSubmit(e)} className={`${styleInput.form_container} ${styleInput.form_margin_top}`}>
+        <form ref={formPost} onSubmit={(e) => handleSubmit(e)} className={`${styleInput.form_container} ${styleInput.form_margin_top} ${styleInput.form_container__w80}`}>
           <input id="imgFile" onChange={handleChange} type="file" name="image" style={{ display: 'none' }}/>
           <label htmlFor="imgFile" className={styleInput.form__button}>sube una imagen</label>
           <div onDragOver={(e) => handelDrag(e) } onDrop={(e) => handleDrop(e) } className={style.more_image__load_imge}>

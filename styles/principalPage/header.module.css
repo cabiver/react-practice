@@ -52,7 +52,7 @@
     align-items: center;
     position: absolute;
     padding: 12px;
-    border: 1px none var(--red_d);
+    border: 2px none var(--red_d);
     border-style: none none solid solid;
 }
 .window_button_option {
