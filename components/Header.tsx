@@ -12,10 +12,9 @@ const Header = () => {
   const [iconSession, setIconSession] = useState(Cookies.get('icon'))
   const [nameSession, setNameSession] = useState(Cookies.get('userName'))
   const router = useRouter()
-  const loggedOff = useRef<HTMLDivElement>(null)
-  const loggedOn = useRef<HTMLDivElement>(null)
   const PrincipalHeader = useRef<HTMLDivElement>(null)
   const marginHeader = useRef<HTMLDivElement>(null)
+  const formSearch = useRef<HTMLFormElement>(null)
   const session = useRef<HTMLFormElement>(null)
   const [create, setCreate] = useState(false)
   const [requestMessege, setRequestMessege] = useState('')
@@ -23,6 +22,13 @@ const Header = () => {
   const handelPassword = () => {
     setVisiblePass((e) => !e)
     changePassword('header-password', visiblePass)
+  }
+  const handelChangeSearch = async (e:any) => {
+    if (!formSearch.current) {
+      return
+    }
+    const request = await axios.get(`/api/search/${e.target.value}`)
+    console.log(request)
   }
   const handelSignOut = () => {
     Cookies.remove('token')
@@ -85,55 +91,60 @@ const Header = () => {
     if (!Cookies.get('token')) {
       return
     }
-    if (!loggedOff.current || !loggedOn.current) {
-      return
-    }
-    loggedOff.current.style.display = 'none'
-    loggedOn.current.style.display = ''
     setLogged(true)
-  }, [logged, loggedOff, loggedOn])
+  }, [logged])
   return (
     <>
       <div ref={PrincipalHeader} className={styles.header}>
-        <div ref={loggedOff}>
-          <div className={styles.nav}>
-            <div onClick={handleClickSession} className={styles.header__container__button}>
-              <div className={styles.header__button}>login</div>
+
+        {logged
+          ? <div className={styles.nav}>
+            <div>
+              <Image className={styles.header__icon}
+                src="/images/camille-300x300.png" alt=""
+                width="50"
+                height="50"/>
             </div>
-          </div>
-        </div>
-        <div ref={loggedOn} style={{ display: 'none' }}>
-          <div onClick={handleClickSession} className={styles.nav}>
-            <div className={styles.header__container__button}>
+            <div onClick={ () => console.log('hola')}>
+              <form ref={ formSearch } className={styles.header__search_container} action="">
+                <input onChange={(e) => handelChangeSearch(e)} className={styleInput.input} name='name' type="text" placeholder='search'/>
+                <button className={`fas fa-search ${styles.header__i_search}`}></button>
+              </form>
+            </div>
+          <div onClick={handleClickSession} className={styles.header__container__button}>
+            <div className={styles.header__session_login}>
+              <div className={styles.header__userName}>
+                {nameSession}
+              </div>
               {
-                logged
-                  ? <>
-                  <div className={styles.header__session_login}>
-                    <div className={styles.header__userName}>
-                      {nameSession}
-                    </div>
-                    {
-                      iconSession
-                        ? <Image
-                        className={styles.header__icon}
-                        src={iconSession}
-                        width="50"
-                        height="50"
-                        alt="yo que se"
-                        priority={true}>
-                      </Image>
-                        : null
-                    }
-                  </div>
-                  </>
-                  : <>sign in</>
+                iconSession
+                  ? <Image
+                  className={styles.header__icon}
+                  src={iconSession}
+                  width="50"
+                  height="50"
+                  alt="yo que se"
+                  priority={true}>
+                </Image>
+                  : null
               }
             </div>
+        </div>
+      </div>
+          : <div className={styles.nav}>
+          <div onClick={handleClickSession} className={styles.header__container__button}>
+            <div className={styles.header__button}>login</div>
           </div>
         </div>
+          }
         <div style={{ display: create ? '' : 'none' }}>
-          {!logged
-            ? <form ref={session} className={styles.window_session} onSubmit={(e) => handleSubmit(e)} action="" >
+          {logged
+            ? <div className={styles.window_session}>
+            <div onClick={handelSignOut} className={styles.window_button_option}>
+              sign out
+            </div>
+          </div>
+            : <form ref={session} className={styles.window_session} onSubmit={(e) => handleSubmit(e)} action="" >
               <label>usuari</label>
               <input name="uss" type="text" className={styleInput.input} />
 
@@ -148,11 +159,6 @@ const Header = () => {
               <input type="submit" className={styleInput.button_send} value="sign in" />
               <label dangerouslySetInnerHTML={{ __html: requestMessege }}></label>
             </form>
-            : <div className={styles.window_session}>
-              <div onClick={handelSignOut} className={styles.window_button_option}>
-                sign out
-              </div>
-            </div>
           }
 
         </div>

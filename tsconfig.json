@@ -13,6 +13,9 @@
       ],
       "@public/*":[
         "public/*"
+      ],
+      "@models/*":[
+        "models/*"
       ]
     },
     "target": "es5",

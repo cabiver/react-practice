@@ -15,10 +15,29 @@
      linear-gradient(166deg, var(--black_c)  75%,
      var(--red_e));
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    padding: 12px 12px;
+    align-items: center;
+}
+.header__search_container {
+    position: relative;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    border-radius: 25px;
+    background-color: var(--black_e);
+}
+.header__i_search {
+    position: absolute;
+    right: 12px;
+    background: transparent;
+    border-style: none;
+}
+.header__i_search:hover {
+    color: var(--black_a);
 }
 .header__container__button {
-    padding: 12px 12px;
+
     cursor: pointer;
 } 
 .header__container__button:hover {

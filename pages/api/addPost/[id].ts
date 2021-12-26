@@ -40,11 +40,13 @@ export default async function handler (
       usuari: req.query.id
     })
     const cookie = req.headers.cookie
+    // console.log(cookie)
     if (!cookie) {
       res.status(401)
       return
     }
     const objetoVerificacion = verificacion(cookie)
+    // console.log(objetoVerificacion)
     if (!objetoVerificacion.metodo) {
       res.status(404).send({ mensaje: 'no se ah encontrado el usuario' })
       return
@@ -70,5 +72,6 @@ export default async function handler (
       // console.log(files.image.filepath)
       // return { image: files.image, body: fields }
     })
+    res.status(200).send({ mensaje: 'fue agregado existosamnete' })
   }
 }

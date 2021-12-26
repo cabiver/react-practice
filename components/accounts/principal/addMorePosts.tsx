@@ -3,7 +3,7 @@ import axios from 'axios'
 import cookies from 'js-cookie'
 import '@styles/componets/posts/post_component.module.css'
 import PostComponent from '../../posts/containerPost'
-// import Image from 'next/image'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import style from '@styles/componets/posts/addMorePosts.module.css'
 import Titule from '../../shareds/titule'
@@ -26,7 +26,7 @@ function MyAccount () {
     const data = form.get('image') as File
     setFile(data)
   }
-  const handleSubmit = (e:any) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault()
     const name = cookies.get('userName')
     if (!formPost.current || !file || !name) {
@@ -39,7 +39,11 @@ function MyAccount () {
     des
       ? form.set('description', des)
       : form.set('description', '')
-    axios.post(`/api/addPost/${name}`, form)
+    const request = await axios.post(`/api/addPost/${name}`, form)
+    console.log(request)
+    if (request.statusText === 'OK') {
+      window.location.reload()
+    }
   }
   const handelDrag = (e: any) => {
     e.preventDefault()
@@ -130,13 +134,15 @@ function MyAccount () {
         <form ref={formPost} onSubmit={(e) => handleSubmit(e)} className={`${styleInput.form_container} ${styleInput.form_margin_top} ${styleInput.form_container__w80}`}>
           <input id="imgFile" onChange={handleChange} type="file" name="image" style={{ display: 'none' }}/>
           <label htmlFor="imgFile" className={styleInput.form__button}>sube una imagen</label>
-          <div onDragOver={(e) => handelDrag(e) } onDrop={(e) => handleDrop(e) } className={style.more_image__load_imge}>
-            <div id="barra-de-carga"></div>
-            <video id="loadVideo" className="render-de-video pc" src="" style={{ width: '0' }}></video>
+          <div onDragOver={(e) => handelDrag(e) } onDrop={(e) => handleDrop(e) } className={`${style.more_image__load_imge} ${style.more_images__img}`}>
+            {/* <video id="loadVideo" className="render-de-video pc" src="" style={{ width: '0', height: '0'}}></video> */}
             {
-              !file
+              !feedBackFile
                 ? <>insert some image or video</>
-                : <img src={feedBackFile} alt="render post image" className={style.more_images__img}/>
+                : <div>
+                      <Image src={feedBackFile} alt="render post image" height='100%' width='100%'
+                      objectFit='contain' layout='responsive'/>
+                </div>
             }
           </div>
           <input className={style.more_images__description} autoComplete="off" type="text" placeholder='add description' name="description"/>

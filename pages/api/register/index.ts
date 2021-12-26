@@ -42,14 +42,15 @@ export default async function handler (
       usuari: op.uss,
       password: encrypted(op.contra)
     })
-
-    // console.log(primer)
-    const userNew = await db.collection('usuarios').insertOne(primer)
-    const token = await jwt.sign({ id: userNew._id, usuariname: userNew.usuari, icon: userNew.icon }, youKnow)
+    db.collection('usuarios').insertOne(primer)
+    // console.log(userNew)
+    // const token = await jwt.sign({ id: userNew._id, usuariname: userNew.usuari, icon: userNew.icon }, youKnow)
+    const token = await jwt.sign({ id: primer._id, usuariname: primer.usuari, icon: primer.icon }, youKnow)
+    // const decodedToken = jwt.verify(token, youKnow)
+    // console.log(decodedToken)
     res.send({
       metodo: true,
       mensaje: 'se ha guardado su usuario',
-      // nombre: userNew.usuari,
       nombre: primer.usuari,
       token: token
     })
