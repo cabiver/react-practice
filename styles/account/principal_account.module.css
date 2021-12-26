@@ -1,0 +1,48 @@
+.background_container {
+    position: relative;
+    overflow: hidden;
+}
+.user_container {
+    display: flex;
+    padding: 6px 12px;
+    justify-content: space-between;
+    overflow: hidden;
+    background-color: var(--black_c);
+    align-items: center;
+}
+.background_difuminado {
+    position: absolute;
+    width: 100%;
+    left: -4px;
+    top: -4px;
+    transform: scale(1.12);
+    filter: blur(4px);
+    z-index: -1;
+}
+.user_div {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+.background_container::before {
+    content: "";
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    height: 45%;
+    background-image: linear-gradient(to top, var(--black_c),transparent);
+    z-index: 50;
+}
+.icon:hover {
+    background-color: #fff3;
+    border-radius: 12px;
+}
+.FormImage {
+    width: 70%;
+}
+@media screen and (min-width: 700px) {
+ 
+    .background_width {
+        padding: 0 17%;
+    }   
+}
