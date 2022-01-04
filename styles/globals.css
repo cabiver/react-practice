@@ -33,6 +33,7 @@ body {
   padding: 0;
   background-color: var(--red_a);
   position: relative;
+  min-width: 530px;
 }
 * {
   box-sizing: border-box;

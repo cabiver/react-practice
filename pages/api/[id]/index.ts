@@ -1,5 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { connectToDatabase } from '../../../utility Functions/mongoDB'
+import USER_SCHEME from '../../../models/usariname'
+
 type Data = {
   mensaje: string
   background : string | null
@@ -12,11 +14,10 @@ export default async function handler (
   res: NextApiResponse<Data>
 ) {
   if (req.method === 'POST') {
-    const { db } = await connectToDatabase()
-    const user = await db.collection('usuarios').findOne({
+    await connectToDatabase()
+    const user = await USER_SCHEME.findOne({
       usuari: req.query.id
     })
-    // console.log(user)
     if (!user) {
       res.status(203).send({ mensaje: 'url de imagen y icono enviada', background: null, icon: null, exist: false })
       return

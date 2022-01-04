@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import styles from '@styles/principalPage/header.module.css'
 import styleInput from '@styles/servis/inputs.module.css'
+import RecomendDiv from './header/RecomendDiv'
 import axios from 'axios'
 import Image from 'next/image'
 import Cookies from 'js-cookie'
@@ -19,6 +20,7 @@ const Header = () => {
   const [create, setCreate] = useState(false)
   const [requestMessege, setRequestMessege] = useState('')
   const [visiblePass, setVisiblePass] = useState(true)
+  const [recomend, setRecomend] = useState<Array<any> | null>(null)
   const handelPassword = () => {
     setVisiblePass((e) => !e)
     changePassword('header-password', visiblePass)
@@ -27,8 +29,13 @@ const Header = () => {
     if (!formSearch.current) {
       return
     }
+    if (e.target.value === '') {
+      setRecomend(null)
+      return
+    }
     const request = await axios.get(`/api/search/${e.target.value}`)
-    console.log(request)
+    console.log(request.data.peaple)
+    setRecomend(e => request.data.peaple)
   }
   const handelSignOut = () => {
     Cookies.remove('token')
@@ -105,11 +112,18 @@ const Header = () => {
                 width="50"
                 height="50"/>
             </div>
-            <div onClick={ () => console.log('hola')}>
-              <form ref={ formSearch } className={styles.header__search_container} action="">
-                <input onChange={(e) => handelChangeSearch(e)} className={styleInput.input} name='name' type="text" placeholder='search'/>
+            <div className={styles.divContaine_search}>
+              <form ref={ formSearch } className={ `${styles.header__search_container} ${recomend ? styles.recomend_container__show_recomend : null}`} action="">
+                <input onChange={(e) => handelChangeSearch(e)} className={styleInput.input} name='name' type="text" placeholder='search' autoComplete='off'/>
                 <button className={`fas fa-search ${styles.header__i_search}`}></button>
               </form>
+                {
+                  !recomend
+                    ? null
+                    : <div className={ styles.recomend_container }>
+                      {recomend.map((e:string, index: any) => <RecomendDiv key={index} name={e}/>)}
+                    </div>
+                }
             </div>
           <div onClick={handleClickSession} className={styles.header__container__button}>
             <div className={styles.header__session_login}>
@@ -132,6 +146,7 @@ const Header = () => {
         </div>
       </div>
           : <div className={styles.nav}>
+          <div></div>
           <div onClick={handleClickSession} className={styles.header__container__button}>
             <div className={styles.header__button}>login</div>
           </div>

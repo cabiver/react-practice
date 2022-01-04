@@ -1,14 +1,17 @@
-import { MongoClient } from 'mongodb'
+import mongoose from 'mongoose'
 
 const uri :string |undefined = process.env.MONGODB_URI
-const dbName:string |undefined = process.env.MONGODB_DB
 
-let cachedClient:any = null
-let cachedDb:any = null
+let cachedDb: any = global.mongoose
+
+if (!cachedDb) {
+  cachedDb = global.mongoose = { conn: null, promise: null }
+}
+// console.log(cachedDb)
 
 export async function connectToDatabase () {
-  if (cachedClient && cachedDb) {
-    return { client: cachedClient, db: cachedDb }
+  if (cachedDb.conn) {
+    return cachedDb.conn
   }
   if (!uri) {
     throw new Error(
@@ -16,21 +19,25 @@ export async function connectToDatabase () {
     )
   }
 
-  if (!dbName) {
-    throw new Error(
-      'Please define the MONGODB_DB environment variable inside .env.local'
-    )
+  if (!cachedDb.promise) {
+    cachedDb.promise = await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      bufferCommands: false
+    })
   }
-
-  const client = await MongoClient.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-
-  const db = await client.db(dbName)
-
-  cachedClient = client
-  cachedDb = db
-
-  return { client, db }
+  cachedDb.conn = await cachedDb.promise
+  return cachedDb.conn
 }
+
+// const client = await mongoose.connect(uri, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// })
+
+// const db = await client.db(dbName)
+
+// cachedClient = client
+// cachedDb = db
+
+// return { client, db }

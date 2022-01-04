@@ -4,6 +4,7 @@ import USER_SCHEME from '../../models/usariname'
 import jwt from 'jsonwebtoken'
 import { descrypted } from '../../utility Functions/crypto'
 import { connectToDatabase } from '../../utility Functions/mongoDB'
+
 const youKnow :string |undefined = process.env.YOU_KNOW
 type Data = {
   metodo: boolean,
@@ -34,19 +35,14 @@ export default async function handler (
       })
       return
     }
-    const { db } = await connectToDatabase()
-
-    if (!db) {
-      return
-    }
-    const primer = new USER_SCHEME({
-      usuari: op.uss,
-      password: op.contra
+    await connectToDatabase()
+    // const primer = new USER_SCHEME({
+    //   usuari: op.uss,
+    //   password: op.contra
+    // })
+    const user = await USER_SCHEME.findOne({
+      usuari: op.uss
     })
-    const user = await db.collection('usuarios').findOne({
-      usuari: primer.usuari
-    })
-    // console.log('porque demora tanto')
     if (user) {
       if (descrypted(user.password) === op.contra) {
         const token = jwt.sign({

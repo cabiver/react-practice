@@ -93,12 +93,8 @@ function RegisterPage () {
           uss: Form.get('user'),
           contra: Form.get('password')
         })
-        console.log('estoy aqui')
-        console.log(respuesta)
         if (respuesta.statusText === 'OK') {
           setRequestMessege(respuesta.data.mensage)
-          console.log('entre aqui')
-
           if (respuesta.data.metodo) {
             document.cookie = 'token=' + respuesta.data.token
             document.cookie = 'userName=' + respuesta.data.nombre

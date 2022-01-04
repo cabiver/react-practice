@@ -8,6 +8,7 @@
     position:fixed;
     z-index: 100;
     width: 100%;
+    min-width: 530px;
 }
 .nav {
     width: 100%;
@@ -18,6 +19,9 @@
     justify-content: space-between;
     padding: 12px 12px;
     align-items: center;
+}
+.divContaine_search {
+    position: relative;
 }
 .header__search_container {
     position: relative;
@@ -36,6 +40,28 @@
 .header__i_search:hover {
     color: var(--black_a);
 }
+.recomend_container {
+    position: absolute;
+    padding: 6px 12px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--black_e);
+}
+.recomend_container__show_recomend {
+    border-radius: 25px 25px 0 0;
+}
+.recomend_component {
+    padding: 0 6px;
+    font-size: 16px;
+    border-radius: 12px;
+}
+
+.recomend_component:hover {
+    background: var(--red_b);
+}
+
 .header__container__button {
 
     cursor: pointer;

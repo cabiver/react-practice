@@ -9,7 +9,6 @@ export function verificacion (cookie:String) {
   }
   const token = jsoncookie.token
   const decodedToken = jwt.verify(token, youKnow)
-  console.log(jwt.verify(token, youKnow))
   if (!decodedToken.id) {
     return { metodo: false }
   } else {

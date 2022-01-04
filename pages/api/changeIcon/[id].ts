@@ -3,6 +3,7 @@ import { connectToDatabase } from 'utility Functions/mongoDB'
 import { v4 as uuidv4 } from 'uuid'
 import formidable from 'formidable'
 import fs from 'fs'
+import USER_SCHEME from '../../../models/usariname'
 
 export const config = {
   api: {
@@ -31,11 +32,8 @@ export default async function handler (
   res: NextApiResponse<Data>
 ) {
   if (req.method === 'POST') {
-    const { db } = await connectToDatabase()
-    if (!db) {
-      return
-    }
-    const user = await db.collection('usuarios').findOne({
+    await connectToDatabase()
+    const user = await USER_SCHEME.findOne({
       usuari: req.query.id
     })
 
@@ -47,7 +45,7 @@ export default async function handler (
       const nombreimagen = uuidv4() + files.image.originalFilename
       const postImg = `/icons/${nombreimagen}`
       await saveFile(files.image.filepath, nombreimagen)
-      await db.collection('usuarios').updateOne({ usuari: user.usuari }, { $set: { icon: postImg } })
+      await USER_SCHEME.updateOne({ usuari: user.usuari }, { $set: { icon: postImg } })
       // console.log(nombreimagen)
       // return { image: files.image, body: fields }
     })

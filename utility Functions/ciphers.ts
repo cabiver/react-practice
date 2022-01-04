@@ -9,9 +9,9 @@ let decipher:any = null
 const messageError = 'please, give me de key an iv'
 
 export function getCipher () {
-  if (cipher) {
-    return cipher
-  }
+  // if (cipher) {
+  //   return cipher
+  // }
   if (!initVector || !Securitykey) {
     throw new Error(messageError)
   }
@@ -19,9 +19,9 @@ export function getCipher () {
   return cipher
 }
 export function getDeCipher () {
-  if (decipher) {
-    return decipher
-  }
+  // if (decipher) {
+  //   return decipher
+  // }
   if (!initVector || !Securitykey) {
     throw new Error(messageError)
   }

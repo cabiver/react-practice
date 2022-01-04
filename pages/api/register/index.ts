@@ -9,7 +9,7 @@ const youKnow :string |undefined = process.env.YOU_KNOW
 const MONGODB_URI :string |undefined = process.env.MONGODB_URI
 
 type Data = {
-    metodo: boolean
+  metodo: boolean
   mensaje: string
   token: string | null
   nombre: string | null
@@ -19,6 +19,7 @@ export default async function handler (
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
+  await connectToDatabase()
   if (req.method === 'POST') {
     if (!MONGODB_URI || !youKnow) {
       console.log("you don't have the env variables")
@@ -29,11 +30,9 @@ export default async function handler (
       res.status(400).send({ token: null, nombre: null, mensaje: 'que haces cambiando mi codigo?', metodo: false })
       return
     }
-    const { db } = await connectToDatabase()
-    const user = await db.collection('usuarios').findOne({
+    const user = await USER_SCHEME.findOne({
       usuari: op.uss
     })
-    // const user = await USER_SCHEME.findOne({ usuari: op.uss })
     if (user) {
       res.send({ token: null, nombre: null, metodo: false, mensaje: 'Este usuario ya existe' })
       return
@@ -42,12 +41,8 @@ export default async function handler (
       usuari: op.uss,
       password: encrypted(op.contra)
     })
-    db.collection('usuarios').insertOne(primer)
-    // console.log(userNew)
-    // const token = await jwt.sign({ id: userNew._id, usuariname: userNew.usuari, icon: userNew.icon }, youKnow)
+    await USER_SCHEME.create(primer)
     const token = await jwt.sign({ id: primer._id, usuariname: primer.usuari, icon: primer.icon }, youKnow)
-    // const decodedToken = jwt.verify(token, youKnow)
-    // console.log(decodedToken)
     res.send({
       metodo: true,
       mensaje: 'se ha guardado su usuario',

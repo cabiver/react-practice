@@ -1,32 +1,25 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-// import { verificacion } from '../../../utility Functions/verifiCookies'
 import { connectToDatabase } from '../../../utility Functions/mongoDB'
-import model from '../../../models/usariname'
+import USER_SCHEME from '../../../models/usariname'
 
 type Data = {
     metodo: boolean
-    friends: Array<string> | null
+    peaple: Array<string> | null
 }
 
 export default async function handler (
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const { client } = await connectToDatabase()
-  const users = await client.collection('usuarios').find({ usuari: { $regex: `${req.query.id}` } })
-  console.log(users)
-  // await connectToDatabase()
+  await connectToDatabase()
+  const users = await USER_SCHEME.find({ usuari: { $regex: `${req.query.id}` } }).limit(4)
   if (req.method === 'GET') {
-    // const users = await model.find({ usuari: { $regex: `${req.query.id}` } })
     const arrayUsers: Array<string> = []
-    // console.log(users)
-    // console.log(users.topology.s.options)
-    // console.log(users.topology)
-    // users.forEach((element : any) => {
-    //   arrayUsers.push(element.usuari)
-    // })
+    users.forEach((element : any) => {
+      arrayUsers.push(element.usuari)
+    })
 
-    res.status(200).json({ metodo: true, friends: arrayUsers })
+    res.status(200).json({ metodo: true, peaple: arrayUsers })
   }
 }
 
