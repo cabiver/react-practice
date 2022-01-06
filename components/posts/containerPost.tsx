@@ -8,6 +8,8 @@ import { useRouter } from 'next/router'
 const ConteinerPost = (props: any) => {
   const body = useState(Math.random())
   const inicial = useRouter()
+  // console.log(props.liked)
+  const liked = useState(props.liked)
 
   const convertidorADias = (diaComparador : string) => {
     if (diaComparador === 'Mon') return 'lunes'
@@ -75,6 +77,7 @@ const ConteinerPost = (props: any) => {
           </div>
           <div className={style.posts_comunity_container}>
             <div onClick={handleLikes} className={style.posts_comunity_section}>
+              <i className={`${liked[0] ? 'fas' : 'far'} fa-heart`}></i>
               like {props.likes.length}
             </div>
             <div className={style.posts_comunity_section}>

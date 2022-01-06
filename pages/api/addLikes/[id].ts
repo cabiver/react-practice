@@ -30,12 +30,20 @@ export default async function handler (
     if (!result.post) {
       return
     }
-    result.post.forEach((element: any) => {
+    result.post.forEach((element: any, index: any) => {
       if (element.idPost === req.body.idPost) {
-        console.log(element)
+        // console.log(element)
+        if (result.post[index].likes.includes(user.usuari)) {
+          const ress = result.post[index].likes.filter((ele:any) => ele !== user.usuari)
+          console.log(ress)
+          // result.post[index].likes = result.post[index].likes.filter((ele:any) => ele !== user.usuari)
+        } else {
+          result.post[index].likes.push(user.usuari)
+        }
       }
     })
-    // , { $push: { post: { $each: [user.usari], $position: 0 } } }
+
+    await USER_SCHEME.updateOne({ _id: result._id }, { $push: { post: result.post } })
     res.send({ mensaje: 'set likes', content: user.usari })
   }
 }

@@ -15,7 +15,7 @@ type Data = {
   mensaje: string
 }
 const saveFile = async (fileDirTempleta:any, fileName: any) => {
-  console.log(fileDirTempleta)
+  // console.log(fileDirTempleta)
   // const url = new URL(file.filepath)
   // console.log(file.filepath)
 

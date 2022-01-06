@@ -153,7 +153,7 @@ function MyAccount () {
       <div className={style.postContainer} ref={marco}>
           { !postsViews
             ? null
-            : postsViews.map((e, index) => <PostComponent key={index} id={e.idPost} url={e.postImg} mesage={e.desc} likes={e.likes} coments={e.coments}/>)
+            : postsViews.map((e, index) => <PostComponent key={index} id={e.idPost} liked={e.liked} url={e.postImg} mesage={e.desc} likes={e.likes} coments={e.coments}/>)
           }
       </div>
 
